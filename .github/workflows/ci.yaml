@@ -2,9 +2,9 @@ name: searchBundle
 
 on:
     push:
-        branches: [ 3.0-dev ]
+        branches: [ main ]
     pull_request:
-        branches: [ 3.0-dev ]
+        branches: [ main, develop ]
 
 env:
     DATABASE_URL: mysql://root:root@127.0.0.1/search_bundle
