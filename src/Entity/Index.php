@@ -31,7 +31,7 @@ namespace araise\SearchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Table(name: 'whatwedo_search_index')]
+#[ORM\Table(name: 'araise_search_index')]
 #[ORM\Index(columns: ['content'], flags: ['fulltext'])]
 #[ORM\Index(columns: ['model'])]
 #[ORM\UniqueConstraint(name: 'search_index', columns: ['foreign_id', 'model', 'grp'])]

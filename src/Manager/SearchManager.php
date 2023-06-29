@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Manager;
 
-use Doctrine\ORM\EntityManagerInterface;
 use araise\SearchBundle\Model\ResultItem;
 use araise\SearchBundle\Repository\IndexRepository;
+use Doctrine\ORM\EntityManagerInterface;
 
 class SearchManager
 {

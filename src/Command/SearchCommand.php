@@ -29,17 +29,17 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Command;
 
+use araise\CoreBundle\Command\BaseCommand;
+use araise\CoreBundle\Manager\FormatterManager;
+use araise\SearchBundle\Entity\Index;
+use araise\SearchBundle\Manager\IndexManager;
+use araise\SearchBundle\Repository\IndexRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use araise\CoreBundle\Command\BaseCommand;
-use araise\CoreBundle\Manager\FormatterManager;
-use araise\SearchBundle\Entity\Index;
-use araise\SearchBundle\Manager\IndexManager;
-use araise\SearchBundle\Repository\IndexRepository;
 
 class SearchCommand extends BaseCommand
 {
@@ -75,10 +75,10 @@ class SearchCommand extends BaseCommand
     /**
      * Configure command.
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setName('whatwedo:search:search')
+            ->setName('araise:search:search')
             ->setDescription('Search the search index')
             ->setHelp('This command search the search index')
             ->addArgument('entity', InputArgument::REQUIRED, 'The Entity to be searched')

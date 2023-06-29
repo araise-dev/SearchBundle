@@ -6,29 +6,29 @@ services:
         autowire: true
         autoconfigure: true
 
-    whatwedo\SearchBundle\Tests\App\Repository\:
+    araise\SearchBundle\Tests\App\Repository\:
         resource: '../Repository/*'
 
-    whatwedo\SearchBundle\Tests\App\Factory\:
+    araise\SearchBundle\Tests\App\Factory\:
         resource: '../Factory/*'
 
-    whatwedo\SearchBundle\Tests\App\Formatter\:
+    araise\SearchBundle\Tests\App\Formatter\:
         resource: '../Formatter/*'
 
-    whatwedo\SearchBundle\Manager\SearchManager:
+    araise\SearchBundle\Manager\SearchManager:
         public: true
 
-    whatwedo\SearchBundle\Manager\FilterManager:
+    araise\SearchBundle\Manager\FilterManager:
         public: true
 
 
-    whatwedo\SearchBundle\Populator\PopulatorInterface:
-        class: whatwedo\SearchBundle\Populator\OneFieldPopulator
+    araise\SearchBundle\Populator\PopulatorInterface:
+        class: araise\SearchBundle\Populator\OneFieldPopulator
         public: true
 
-    whatwedo\SearchBundle\Populator\OneFieldPopulator:
+    araise\SearchBundle\Populator\OneFieldPopulator:
         public: true
 
-    whatwedo\SearchBundle\Populator\StandardPopulator:
+    araise\SearchBundle\Populator\StandardPopulator:
         public: true
 

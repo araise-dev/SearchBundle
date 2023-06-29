@@ -12,7 +12,7 @@ In your entities, you have to configure the indexed fields with the index annota
 // ...
 
 use Doctrine\ORM\Mapping as ORM;
-use whatwedo\SearchBundle\Annotation\Index;
+use araise\SearchBundle\Annotation\Index;
 
 // ...
 
@@ -31,12 +31,12 @@ It is possible to define a custom formatter:
 // ...
 
 use Doctrine\ORM\Mapping as ORM;
-use whatwedo\SearchBundle\Annotation\Index;
+use araise\SearchBundle\Annotation\Index;
 
 // ...
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, name="created_at")]
-    #[Index(formatter="whatwedo\CoreBundle\Formatter\DateTimeFormatter")]
+    #[Index(formatter="araise\CoreBundle\Formatter\DateTimeFormatter")]
     protected DateTimeInterface $createdAt;
     
 // ...
@@ -50,7 +50,7 @@ You can index a method return value too:
 // ...
 
 use Doctrine\ORM\Mapping as ORM;
-use whatwedo\SearchBundle\Annotation\Index;
+use araise\SearchBundle\Annotation\Index;
 
 // ...
 
@@ -71,8 +71,8 @@ Annotations for modifing the search results, with preSearch and postSearch hooks
 // ...
 
 use Doctrine\ORM\Mapping as ORM;
-use whatwedo\SearchBundle\Annotation\Index;
-use whatwedo\SearchBundle\Annotation\Searchable;
+use araise\SearchBundle\Annotation\Index;
+use araise\SearchBundle\Annotation\Searchable;
 
 // ...
 /**
@@ -117,7 +117,7 @@ The preSearch Hook
 // ...
 
 use Doctrine\ORM\QueryBuilder;
-use whatwedo\SearchBundle\Entity\PreSearchInterface;
+use araise\SearchBundle\Entity\PreSearchInterface;
 
 // ...
 class UserPreSearch implements PreSearchInterface
@@ -135,7 +135,7 @@ The postSearch Hook
 ```
 // src/Search/UserPostSearch.php
 
-use whatwedo\SearchBundle\Entity\PostSearchInterface;
+use araise\SearchBundle\Entity\PostSearchInterface;
 
 class PersonPostSearch implements PostSearchInterface
 {
@@ -174,15 +174,15 @@ class PersonPostSearch implements PostSearchInterface
 ## Configuration file
 
 It's also possible to configure the indexed fields in your `config.yml` 
-or create `config/packages/whatwedo_search.yaml` for Symfony 4
+or create `config/packages/araise_search.yaml` for Symfony 4
 
 ```
-whatwedo_search:
+araise_search:
     entities:
         user:
             class: Agency\UserBundle\Entity\User
             fields:
                 - { name: firstname }
-                - { name: createdAt, formatter: whatwedo\CoreBundle\Formatter\DateTimeFormatter }
+                - { name: createdAt, formatter: araise\CoreBundle\Formatter\DateTimeFormatter }
 ```
 

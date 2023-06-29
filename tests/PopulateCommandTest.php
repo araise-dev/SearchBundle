@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Tests;
 
-use Doctrine\ORM\EntityManagerInterface;
 use araise\SearchBundle\Entity\Index;
+use Doctrine\ORM\EntityManagerInterface;
 use Zenstruck\Console\Test\InteractsWithConsole;
 
 class PopulateCommandTest extends AbstractIndexTest
@@ -16,7 +16,7 @@ class PopulateCommandTest extends AbstractIndexTest
     {
         $this->createEntities();
 
-        $this->executeConsoleCommand('whatwedo:search:populate')
+        $this->executeConsoleCommand('araise:search:populate')
             ->assertSuccessful()
             ->assertOutputContains('Flushing index table')
             ->assertOutputContains('Entity\Company')

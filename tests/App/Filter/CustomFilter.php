@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Tests\App\Filter;
 
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use araise\SearchBundle\Filter\AbstractFilter;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CustomFilter extends AbstractFilter
 {

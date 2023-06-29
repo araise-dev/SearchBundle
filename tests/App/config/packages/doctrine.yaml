@@ -23,8 +23,8 @@ doctrine:
             is_bundle: false
             type: attribute
             dir: '%kernel.project_dir%/Entity'
-            prefix: 'whatwedo\SearchBundle\Tests\App\Entity'
+            prefix: 'araise\SearchBundle\Tests\App\Entity'
             alias: App
         dql:
             string_functions:
-                MATCH_AGAINST: whatwedo\SearchBundle\Extension\Doctrine\Query\Mysql\MatchAgainst
+                MATCH_AGAINST: araise\SearchBundle\Extension\Doctrine\Query\Mysql\MatchAgainst

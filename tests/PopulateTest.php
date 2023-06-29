@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Tests;
 
-use Doctrine\ORM\EntityManagerInterface;
 use araise\SearchBundle\Entity\Index;
 use araise\SearchBundle\Exception\ClassNotDoctrineMappedException;
 use araise\SearchBundle\Exception\ClassNotIndexedEntityException;
@@ -14,6 +13,7 @@ use araise\SearchBundle\Populator\StandardPopulator;
 use araise\SearchBundle\Tests\App\Entity\Company;
 use araise\SearchBundle\Tests\App\Entity\Person;
 use araise\SearchBundle\Tests\App\Model\NotADoctrinieModel;
+use Doctrine\ORM\EntityManagerInterface;
 
 class PopulateTest extends AbstractIndexTest
 {

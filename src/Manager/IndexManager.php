@@ -29,13 +29,13 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Manager;
 
+use araise\SearchBundle\Annotation\Index as AttributeIndex;
+use araise\SearchBundle\Entity\Index as EntityIndex;
+use araise\SearchBundle\Exception\MethodNotFoundException;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\Mapping\ClassMetadata;
-use araise\SearchBundle\Annotation\Index as AttributeIndex;
-use araise\SearchBundle\Entity\Index as EntityIndex;
-use araise\SearchBundle\Exception\MethodNotFoundException;
 
 class IndexManager
 {

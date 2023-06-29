@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Tests;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use araise\SearchBundle\Filter\LowerCaseFilter;
 use araise\SearchBundle\Manager\FilterManager;
 use araise\SearchBundle\Tokenizer\StandardTokenizer;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 

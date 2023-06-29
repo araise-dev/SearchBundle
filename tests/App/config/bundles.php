@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
+use araise\CoreBundle\araiseCoreBundle;
+use araise\SearchBundle\araiseSearchBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
-use araise\CoreBundle\whatwedoCoreBundle;
-use araise\SearchBundle\whatwedoSearchBundle;
 use Zenstruck\Foundry\ZenstruckFoundryBundle;
 
 return [
@@ -22,10 +22,10 @@ return [
     ZenstruckFoundryBundle::class => [
         'all' => true,
     ],
-    whatwedoCoreBundle::class => [
+    araiseCoreBundle::class => [
         'all' => true,
     ],
-    whatwedoSearchBundle::class => [
+    araiseSearchBundle::class => [
         'all' => true,
     ],
 ];

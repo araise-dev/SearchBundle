@@ -1,6 +1,6 @@
 # Getting Started
 
-This documentation provides a basic view of the possibilities of the whatwedoSearchBundle. 
+This documentation provides a basic view of the possibilities of the araiseSearchBundle. 
 
 ## Requirements
 
@@ -31,19 +31,9 @@ add this repository to you composer.json: ([Sadly composer cannot load repositor
 Then the bundle to your dependencies and install it.
 
 ```
-composer require whatwedo/search-bundle
+composer require araise/search-bundle
 ```
-**remove after relase**
 
-The v3 version is still in developing,
-so you need to add these lines manually to the `composer.json` `require` to get the version constraint right:
-```json
-    ...
-    "whatwedo/search-bundle": "dev-3.0-dev as v3.0.0",
-    "whatwedo/core-bundle": "dev-1.0-dev as v1.0.0",
-    ...
-```
-Run `composer update`  
 After successfully installing the bundle, you should see changes in these files:
  - `composer.json`
  - `composer.lock`
@@ -60,7 +50,7 @@ doctrine:
     orm:
         dql:
             string_functions:
-                MATCH_AGAINST: whatwedo\SearchBundle\Extension\Doctrine\Query\Mysql\MatchAgainst
+                MATCH_AGAINST: araise\SearchBundle\Extension\Doctrine\Query\Mysql\MatchAgainst
 ```
 
 Next, update your database schema.
@@ -76,7 +66,7 @@ In your entities, you have to configure the indexed fields with the index annota
 
 ```
 use Doctrine\ORM\Mapping as ORM;
-use whatwedo\SearchBundle\Annotation\Index;
+use araise\SearchBundle\Annotation\Index;
 
 #[ORM\Entity]
 class Post
@@ -102,7 +92,7 @@ Now and after every database change which are **not** performed by Doctrine, you
 Read more about populating your [here](indexing.md)
 
 ```
-php bin/console whatwedo:search:populate
+php bin/console araise:search:populate
 ```
 
 Now you can use the Index repository to search in your entities
@@ -111,7 +101,7 @@ Now you can use the Index repository to search in your entities
 use App\Entity\Post;
 use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use whatwedo\SearchBundle\Repository\IndexRepository;
+use araise\SearchBundle\Repository\IndexRepository;
 
 class DefaultController extends AbstractController
 {

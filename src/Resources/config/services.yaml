@@ -4,12 +4,12 @@ services:
         autoconfigure: true
         public: false
 
-    whatwedo\SearchBundle\:
+    araise\SearchBundle\:
         resource: '../../*'
 
-    whatwedo\SearchBundle\Populator\PopulatorInterface:
-        class: whatwedo\SearchBundle\Populator\OneFieldPopulator
+    araise\SearchBundle\Populator\PopulatorInterface:
+        class: araise\SearchBundle\Populator\OneFieldPopulator
 
-    whatwedo\SearchBundle\EventListener\IndexListener:
+    araise\SearchBundle\EventListener\IndexListener:
         tags:
             - { name: doctrine.event_subscriber, connection: default }

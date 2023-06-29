@@ -22,8 +22,8 @@ return static function (ECSConfig $containerConfigurator): void {
         ClassCommentSniff::class,
         FunctionCommentThrowTagSniff::class,
         ValidClassNameSniff::class => [
-            __DIR__ . '/src/whatwedoSearchBundle.php',
-            __DIR__ . '/src/DependencyInjection/whatwedoSearchExtension.php',
+            __DIR__ . '/src/araiseSearchBundle.php',
+            __DIR__ . '/src/DependencyInjection/araiseSearchExtension.php',
         ],
         PhpCsFixer\Fixer\Whitespace\MethodChainingIndentationFixer::class => [
             __DIR__ . '/src/DependencyInjection/Configuration.php',

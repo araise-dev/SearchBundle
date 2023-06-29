@@ -16,7 +16,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('whatwedo_search');
+        $treeBuilder = new TreeBuilder('araise_search');
         $rootNode = $treeBuilder->getRootNode();
         $rootNode
             ->children()

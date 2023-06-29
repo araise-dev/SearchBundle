@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Tests;
 
-use Doctrine\ORM\EntityManagerInterface;
 use araise\SearchBundle\Entity\Index;
 use araise\SearchBundle\Populator\OneFieldPopulator;
 use araise\SearchBundle\Populator\PopulatorInterface;
+use Doctrine\ORM\EntityManagerInterface;
 
 class OneFieldPopulateTest extends AbstractIndexTest
 {

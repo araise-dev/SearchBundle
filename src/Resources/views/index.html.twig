@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ pagination.total }} {{ 'whatwedo_search.search_result_for' | trans }} "{{ searchTerm }}" {{ parent() }}{% endblock %}
+{% block title %}{{ pagination.total }} {{ 'araise_search.search_result_for' | trans }} "{{ searchTerm }}" {{ parent() }}{% endblock %}
 
 {% block main %}
-    <div class="whatwedo_table:wrapper bg-white" data-controller="whatwedo--table-bundle--filter">
+    <div class="whatwedo_table:wrapper bg-white" data-controller="araise--table-bundle--filter">
         <header class="whatwedo_table:header border-b border-neutral-200 px-4 py-4 sm:flex sm:items-center sm:justify-between">
             <div class="whatwedo_table:header__title flex-1 min-w-0 text-lg font-medium leading-6 text-neutral-900 sm:truncate">
                 <h1>
-                    {{ pagination.total }} {{ 'whatwedo_search.search_result_for' | trans }} "{{ searchTerm }}"
+                    {{ pagination.total }} {{ 'araise_search.search_result_for' | trans }} "{{ searchTerm }}"
                 </h1>
             </div>
             {% if duration %}
@@ -26,14 +26,14 @@
     {% if pagination.currentPage > 1 %}
         {#            {% set paginationLinks = paginationLinks|merge([{#}
         {#                is_current: false,#}
-        {#                title: 'whatwedo_table.pagination.first_page'|trans,#}
-        {#                link: whatwedo_table_path_replace_arguments({ (whatwedo_table_parameter(table, 'page')) : 1 }),#}
+        {#                title: 'araise_table.pagination.first_page'|trans,#}
+        {#                link: araise_table_path_replace_arguments({ (araise_table_parameter(table, 'page')) : 1 }),#}
         {#                contents: bootstrap_icon('chevron-bar-left')#}
         {#            }]) %}#}
         {#            {% set paginationLinks = paginationLinks|merge([{#}
         {#                is_current: false,#}
-        {#                title: 'whatwedo_table.pagination.previous_page'|trans,#}
-        {#                link: whatwedo_table_path_replace_arguments({ (whatwedo_table_parameter(table, 'page')) : pagination.currentPage - 1 }),#}
+        {#                title: 'araise_table.pagination.previous_page'|trans,#}
+        {#                link: araise_table_path_replace_arguments({ (araise_table_parameter(table, 'page')) : pagination.currentPage - 1 }),#}
         {#                contents: bootstrap_icon('chevron-left')#}
         {#            }]) %}#}
     {% endif %}
@@ -44,7 +44,7 @@
         {% if page > 0 %}
             {% set paginationLinks = paginationLinks|merge([{
                 is_current: false,
-                title: 'whatwedo_table.pagination.page_num'|trans({'{page}': page}),
+                title: 'araise_table.pagination.page_num'|trans({'{page}': page}),
                 link: app.request.pathInfo ~ '?query=' ~ app.request.query.get('query') ~ '&page=' ~ page ~ '&limit=' ~ pagination.limit,
                 contents: page
             }]) %}
@@ -54,7 +54,7 @@
     {# current #}
     {% set paginationLinks = paginationLinks|merge([{
         is_current: true,
-        title: 'whatwedo_table.pagination.current_page'|trans,
+        title: 'araise_table.pagination.current_page'|trans,
         link: app.request.pathInfo ~ '?query=' ~ app.request.query.get('query') ~ '&page=' ~ pagination.currentPage ~ '&limit=' ~ pagination.limit,
         contents: pagination.currentPage
     }]) %}
@@ -65,7 +65,7 @@
         {% if page < ( pagination.totalPages + 1 ) %}
             {% set paginationLinks = paginationLinks|merge([{
                 is_current: false,
-                title: 'whatwedo_table.pagination.page_num'|trans({'{page}': page}),
+                title: 'araise_table.pagination.page_num'|trans({'{page}': page}),
                 link: app.request.pathInfo ~ '?query=' ~ app.request.query.get('query') ~ '&page=' ~ page ~ '&limit=' ~ pagination.limit,
                 contents: page
             }]) %}
@@ -76,13 +76,13 @@
     {% if pagination.currentPage < pagination.totalPages %}
         {% set paginationLinks = paginationLinks|merge([{
             is_current: false,
-            title: 'whatwedo_table.pagination.next_page'|trans,
+            title: 'araise_table.pagination.next_page'|trans,
             link: app.request.pathInfo ~ '?query=' ~ app.request.query.get('query') ~ '&page=' ~ (pagination.currentPage + 1) ~ '&limit=' ~ pagination.limit,
             contents: bootstrap_icon('chevron-right')
         }]) %}
         {% set paginationLinks = paginationLinks|merge([{
             is_current: false,
-            title: 'whatwedo_table.pagination.last_page'|trans,
+            title: 'araise_table.pagination.last_page'|trans,
             link: app.request.pathInfo ~ '?query=' ~ app.request.query.get('query') ~ '&page=' ~ pagination.totalPages ~ '&limit=' ~ pagination.limit,
             contents: bootstrap_icon('chevron-bar-right')
         }]) %}
@@ -95,7 +95,7 @@
                     {% set offsetResults = 0 %}
                     {% if pagination.total %}{% set offsetResults = pagination.offsetStart %}{% endif %}
 
-                    {{ 'whatwedo_table.foot.result'|trans({
+                    {{ 'araise_table.foot.result'|trans({
                         '{offsetResults}': pagination.offsetStart,
                         '{offsetLength}': pagination.offsetEnd,
                         '{totalResults}': pagination.totalResults
@@ -103,20 +103,20 @@
                 </p>
 
                 <div
-                    {{ stimulus_controller('whatwedo/core-bundle/dropdown') }}
+                    {{ stimulus_controller('araise/core-bundle/dropdown') }}
                     class="whatwedo_table:footer__dropdown relative inline-block text-left pl-4"
                 >
                     <button
                         class="whatwedo_table-button--pagination"
-                        {{ stimulus_action('whatwedo/core-bundle/dropdown', 'toggle') | stimulus_action('whatwedo/core-bundle/dropdown', 'click@window', 'hide') }}
+                        {{ stimulus_action('araise/core-bundle/dropdown', 'toggle') | stimulus_action('araise/core-bundle/dropdown', 'click@window', 'hide') }}
                         type="button"
                     >
-                        {{ 'whatwedo_table.amount_entries'|trans({'{amount}': pagination.limit}) }}
+                        {{ 'araise_table.amount_entries'|trans({'{amount}': pagination.limit}) }}
                         {{ bootstrap_icon('chevron-up', { class: 'inline w-5 h-5 pl-2' }) }}
                     </button>
 
                     <div
-                        {{ stimulus_target('whatwedo/core-bundle/dropdown', 'menu') }}
+                        {{ stimulus_target('araise/core-bundle/dropdown', 'menu') }}
                         class="hidden transition duration-300 transform origin-bottom-left absolute left-3 bottom-11 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                         data-transition-enter-from="opacity-0 scale-95"
                         data-transition-enter-to="opacity-100 scale-100"
@@ -126,7 +126,7 @@
                         <div class="py-1 text-neutral-700 text-sm">
                             {% for limit in pagination.limit_choices|filter(limit => limit != pagination.limit) %}
                                 <a class="block px-4 py-2 hover:bg-neutral-50" href="{{ app.request.pathInfo }}?query={{ app.request.query.get('query') }}&limit={{ limit }}">
-                                    {{- 'whatwedo_table.amount_entries'|trans({'{amount}': limit}) -}}
+                                    {{- 'araise_table.amount_entries'|trans({'{amount}': limit}) -}}
                                 </a>
                             {% endfor %}
                         </div>
@@ -152,29 +152,29 @@
 
 {% block results %}
     <div class="whatwedo_table:table__wrapper align-middle inline-block min-w-full border-b border-neutral-200">
-        <table class="min-w-full" data-whatwedo--table-bundle--table-target="table" style="padding: 0px;">
+        <table class="min-w-full" data-araise--table-bundle--table-target="table" style="padding: 0px;">
             <thead class="tableFloatingHeaderOriginal">
             <tr class="border-b border-neutral-200 bg-neutral-50 text-xs font-medium text-neutral-500 text-left uppercase tracking-wider">
                 <th class="px-6 py-3">
-                    {{ 'whatwedo_search.type'  | trans }}
+                    {{ 'araise_search.type'  | trans }}
                 </th>
                 <th class="px-6 py-3">
-                    {{ 'whatwedo_search.name'  | trans }}
+                    {{ 'araise_search.name'  | trans }}
                 </th>
                 <th class="px-6 py-3">
-                    {{ 'whatwedo_search.score'  | trans }}
+                    {{ 'araise_search.score'  | trans }}
                 </th>
             </tr>
             </thead><thead class="tableFloatingHeader" style="display: none; opacity: 0;">
             <tr class="border-b border-neutral-200 bg-neutral-50 text-xs font-medium text-neutral-500 text-left uppercase tracking-wider">
                 <th class="px-6 py-3">
-                    {{ 'whatwedo_search.type'  | trans }}
+                    {{ 'araise_search.type'  | trans }}
                 </th>
                 <th class="px-6 py-3">
-                    {{ 'whatwedo_search.name'  | trans }}
+                    {{ 'araise_search.name'  | trans }}
                 </th>
                 <th class="px-6 py-3">
-                    {{ 'whatwedo_search.score'  | trans }}
+                    {{ 'araise_search.score'  | trans }}
                 </th>
             </tr>
             </thead>

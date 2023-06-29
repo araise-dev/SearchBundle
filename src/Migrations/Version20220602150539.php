@@ -36,16 +36,16 @@ final class Version20220602150539 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'creates "whatwedo_search_index" table';
+        return 'creates "araise_search_index" table';
     }
 
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE TABLE whatwedo_search_index (id BIGINT AUTO_INCREMENT NOT NULL, foreign_id INT NOT NULL, model VARCHAR(150) NOT NULL, grp VARCHAR(90) NOT NULL, content LONGTEXT NOT NULL, FULLTEXT INDEX IDX_38033FA6FEC530A9 (content), INDEX IDX_38033FA6D79572D9 (model), UNIQUE INDEX search_index (foreign_id, model, grp), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE araise_search_index (id BIGINT AUTO_INCREMENT NOT NULL, foreign_id INT NOT NULL, model VARCHAR(150) NOT NULL, grp VARCHAR(90) NOT NULL, content LONGTEXT NOT NULL, FULLTEXT INDEX IDX_38033FA6FEC530A9 (content), INDEX IDX_38033FA6D79572D9 (model), UNIQUE INDEX search_index (foreign_id, model, grp), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP TABLE whatwedo_search_index');
+        $this->addSql('DROP TABLE araise_search_index');
     }
 }

@@ -6,6 +6,6 @@ namespace araise\SearchBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class whatwedoSearchBundle extends Bundle
+class araiseSearchBundle extends Bundle
 {
 }

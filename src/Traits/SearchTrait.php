@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Traits;
 
+use araise\SearchBundle\Manager\SearchManager;
+use araise\SearchBundle\Model\ResultItem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Stopwatch\Stopwatch;
-use araise\SearchBundle\Manager\SearchManager;
-use araise\SearchBundle\Model\ResultItem;
 
 trait SearchTrait
 {
@@ -46,7 +46,7 @@ trait SearchTrait
 
     protected function getSearchTemplate(): string
     {
-        return '@whatwedoSearch/index.html.twig';
+        return '@araiseSearch/index.html.twig';
     }
 
     protected function getGlobalResults(Request $request, SearchManager $searchManager, $options = []): array
@@ -95,7 +95,7 @@ trait SearchTrait
 
         if ($this->searchOptions[Search::OPT_STOP_WATCH]) {
             $stopWatch = new Stopwatch();
-            $stopWatch->start('whatwedoSearch');
+            $stopWatch->start('araiseSearch');
         }
         $searchTerm = $request->query->get('query', '');
 
@@ -158,7 +158,7 @@ trait SearchTrait
             'results' => $results,
             'pagination' => $pagination,
             'searchTerm' => $searchTerm,
-            'duration' => $this->searchOptions[Search::OPT_STOP_WATCH] ? $stopWatch->start('whatwedoSearch')->getDuration() : 0,
+            'duration' => $this->searchOptions[Search::OPT_STOP_WATCH] ? $stopWatch->start('araiseSearch')->getDuration() : 0,
             'searchHelper' => $searchHelper,
         ];
 

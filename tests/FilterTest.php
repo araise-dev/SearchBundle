@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Tests;
 
-use PHPUnit\Framework\TestCase;
 use araise\SearchBundle\Filter\LowerCaseFilter;
 use araise\SearchBundle\Filter\RemoveFilter;
+use PHPUnit\Framework\TestCase;
 
 class FilterTest extends TestCase
 {

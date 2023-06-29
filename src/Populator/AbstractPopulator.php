@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Populator;
 
-use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ORM\EntityManagerInterface;
 use araise\CoreBundle\Manager\FormatterManager;
 use araise\SearchBundle\Exception\ClassNotDoctrineMappedException;
 use araise\SearchBundle\Exception\ClassNotIndexedEntityException;
 use araise\SearchBundle\Manager\IndexManager;
 use araise\SearchBundle\Repository\CustomSearchPopulateQueryBuilderInterface;
+use Doctrine\Common\Util\ClassUtils;
+use Doctrine\ORM\EntityManagerInterface;
 
 abstract class AbstractPopulator implements PopulatorInterface
 {
@@ -160,21 +160,21 @@ abstract class AbstractPopulator implements PopulatorInterface
     protected function bulkInsert(array $insertSqlParts, array $insertData)
     {
         $connection = $this->entityManager->getConnection();
-        $bulkInsertStatetment = $connection->prepare('INSERT INTO whatwedo_search_index (foreign_id, model, grp, content) VALUES ' . implode(',', $insertSqlParts));
+        $bulkInsertStatetment = $connection->prepare('INSERT INTO araise_search_index (foreign_id, model, grp, content) VALUES ' . implode(',', $insertSqlParts));
         $bulkInsertStatetment->executeStatement($insertData);
     }
 
     protected function update(string $id, string $content)
     {
         $connection = $this->entityManager->getConnection();
-        $updateStatement = $connection->prepare('UPDATE whatwedo_search_index SET content=? WHERE id=?');
+        $updateStatement = $connection->prepare('UPDATE araise_search_index SET content=? WHERE id=?');
         $updateStatement->executeStatement([$content, $id]);
     }
 
     protected function delete(string $foreignId, string $model)
     {
         $connection = $this->entityManager->getConnection();
-        $updateStatement = $connection->prepare('DELETE FROM whatwedo_search_index WHERE foreign_id=? and model=?');
+        $updateStatement = $connection->prepare('DELETE FROM araise_search_index WHERE foreign_id=? and model=?');
         $updateStatement->executeStatement([$foreignId, $model]);
     }
 

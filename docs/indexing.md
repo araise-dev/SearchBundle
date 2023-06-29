@@ -4,13 +4,13 @@ By default all entities will be indexed by the populate command
 
 
 ```
-php bin/console whatwedo:search:populate
+php bin/console araise:search:populate
 ```
 
 ## QueryBuilder
 
 You can define your own subset of entities by define a queryBuilder
-for the indexing. Do this by implementing the interface `whatwedo\SearchBundle\Repository\CustomSearchPopulateQueryBuilderInterface`
+for the indexing. Do this by implementing the interface `araise\SearchBundle\Repository\CustomSearchPopulateQueryBuilderInterface`
 
 for example if you want to index only the product in stock.
 
@@ -21,7 +21,7 @@ use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
-use whatwedo\SearchBundle\Repository\CustomSearchPopulateQueryBuilderInterface;
+use araise\SearchBundle\Repository\CustomSearchPopulateQueryBuilderInterface;
 
 /**
  * @method Product|null find($id, $lockMode = null, $lockVersion = null)

@@ -1,13 +1,12 @@
-[![Latest Stable Version](https://poser.pugx.org/whatwedo/search-bundle/v/stable)](https://packagist.org/packages/whatwedo/search-bundle)
-[![SymfonyInsight](https://insight.symfony.com/projects/82c173ff-d154-4324-bf9b-ace64c689efd/mini.svg)](https://insight.symfony.com/projects/82c173ff-d154-4324-bf9b-ace64c689efd)
+[![Latest Stable Version](https://poser.pugx.org/araise-dev/search-bundle/v/stable)](https://packagist.org/packages/araise-dev/search-bundle)
 
-# whatwedoSearchBundle
+# araiseSearchBundle
 
 This bundle is part of the [araise.dev](https://araise.dev) framework.
 
 ## Documentation
 
-[whatwedo.github.io/SearchBundle](https://whatwedo.github.io/SearchBundle/#/)
+[araise-dev.github.io/SearchBundle](https://araise-dev.github.io/SearchBundle/#/)
 
 ## License
 

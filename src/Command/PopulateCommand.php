@@ -29,13 +29,13 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Command;
 
+use araise\CoreBundle\Command\BaseCommand;
+use araise\SearchBundle\Populator\PopulateOutputInterface;
+use araise\SearchBundle\Populator\PopulatorInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use araise\CoreBundle\Command\BaseCommand;
-use araise\SearchBundle\Populator\PopulateOutputInterface;
-use araise\SearchBundle\Populator\PopulatorInterface;
 
 class PopulateCommand extends BaseCommand implements PopulateOutputInterface
 {
@@ -66,10 +66,10 @@ class PopulateCommand extends BaseCommand implements PopulateOutputInterface
     /**
      * Configure command.
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setName('whatwedo:search:populate')
+            ->setName('araise:search:populate')
             ->setDescription('Populate the search index')
             ->setHelp('This command populate the search index according to the entity annotations')
             ->addArgument('entity', InputArgument::OPTIONAL, 'Only populate index for this entity');

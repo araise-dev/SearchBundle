@@ -29,14 +29,14 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Annotations\AnnotationException;
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Persistence\ManagerRegistry;
 use araise\SearchBundle\Annotation\Searchable;
 use araise\SearchBundle\Entity\Index;
 use araise\SearchBundle\Entity\PostSearchInterface;
 use araise\SearchBundle\Entity\PreSearchInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Annotations\AnnotationException;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Persistence\ManagerRegistry;
 
 class IndexRepository extends ServiceEntityRepository
 {

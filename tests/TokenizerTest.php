@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Tests;
 
-use PHPUnit\Framework\TestCase;
 use araise\SearchBundle\Tokenizer\StandardTokenizer;
+use PHPUnit\Framework\TestCase;
 
 class TokenizerTest extends TestCase
 {

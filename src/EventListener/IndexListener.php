@@ -29,13 +29,13 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\EventListener;
 
+use araise\CoreBundle\Manager\FormatterManager;
+use araise\SearchBundle\Manager\IndexManager;
+use araise\SearchBundle\Populator\PopulatorInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\DBAL\Statement;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
-use araise\CoreBundle\Manager\FormatterManager;
-use araise\SearchBundle\Manager\IndexManager;
-use araise\SearchBundle\Populator\PopulatorInterface;
 
 class IndexListener implements EventSubscriber
 {

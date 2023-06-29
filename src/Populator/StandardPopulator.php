@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Populator;
 
+use araise\SearchBundle\Entity\Index;
+use araise\SearchBundle\Exception\MethodNotFoundException;
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use araise\SearchBundle\Entity\Index;
-use araise\SearchBundle\Exception\MethodNotFoundException;
 
 class StandardPopulator extends AbstractPopulator
 {
