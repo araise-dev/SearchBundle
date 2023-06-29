@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests;
+namespace araise\SearchBundle\Tests;
 
 use PHPUnit\Framework\TestCase;
-use whatwedo\SearchBundle\Filter\LowerCaseFilter;
-use whatwedo\SearchBundle\Filter\RemoveFilter;
+use araise\SearchBundle\Filter\LowerCaseFilter;
+use araise\SearchBundle\Filter\RemoveFilter;
 
 class FilterTest extends TestCase
 {

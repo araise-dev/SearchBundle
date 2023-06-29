@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests;
+namespace araise\SearchBundle\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
-use whatwedo\SearchBundle\Entity\Index;
-use whatwedo\SearchBundle\Exception\ClassNotDoctrineMappedException;
-use whatwedo\SearchBundle\Exception\ClassNotIndexedEntityException;
-use whatwedo\SearchBundle\Populator\OneFieldPopulator;
-use whatwedo\SearchBundle\Populator\PopulatorInterface;
-use whatwedo\SearchBundle\Populator\StandardPopulator;
-use whatwedo\SearchBundle\Tests\App\Entity\Company;
-use whatwedo\SearchBundle\Tests\App\Entity\Person;
-use whatwedo\SearchBundle\Tests\App\Model\NotADoctrinieModel;
+use araise\SearchBundle\Entity\Index;
+use araise\SearchBundle\Exception\ClassNotDoctrineMappedException;
+use araise\SearchBundle\Exception\ClassNotIndexedEntityException;
+use araise\SearchBundle\Populator\OneFieldPopulator;
+use araise\SearchBundle\Populator\PopulatorInterface;
+use araise\SearchBundle\Populator\StandardPopulator;
+use araise\SearchBundle\Tests\App\Entity\Company;
+use araise\SearchBundle\Tests\App\Entity\Person;
+use araise\SearchBundle\Tests\App\Model\NotADoctrinieModel;
 
 class PopulateTest extends AbstractIndexTest
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests;
+namespace araise\SearchBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Yaml\Yaml;
-use whatwedo\SearchBundle\DependencyInjection\Configuration;
-use whatwedo\SearchBundle\Filter\FilterInterface;
-use whatwedo\SearchBundle\Manager\FilterManager;
+use araise\SearchBundle\DependencyInjection\Configuration;
+use araise\SearchBundle\Filter\FilterInterface;
+use araise\SearchBundle\Manager\FilterManager;
 
 class FilterConfigurationTest extends KernelTestCase
 {

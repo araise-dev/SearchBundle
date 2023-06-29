@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Filter;
+namespace araise\SearchBundle\Filter;
 
 interface FilterInterface
 {

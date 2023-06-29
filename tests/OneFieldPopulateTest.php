@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests;
+namespace araise\SearchBundle\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
-use whatwedo\SearchBundle\Entity\Index;
-use whatwedo\SearchBundle\Populator\OneFieldPopulator;
-use whatwedo\SearchBundle\Populator\PopulatorInterface;
+use araise\SearchBundle\Entity\Index;
+use araise\SearchBundle\Populator\OneFieldPopulator;
+use araise\SearchBundle\Populator\PopulatorInterface;
 
 class OneFieldPopulateTest extends AbstractIndexTest
 {

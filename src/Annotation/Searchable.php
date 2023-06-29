@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Annotation;
+namespace araise\SearchBundle\Annotation;
 
 #[\Attribute]
 class Searchable

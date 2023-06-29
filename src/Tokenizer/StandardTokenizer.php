@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tokenizer;
+namespace araise\SearchBundle\Tokenizer;
 
 class StandardTokenizer extends AbstractTokenizer
 {

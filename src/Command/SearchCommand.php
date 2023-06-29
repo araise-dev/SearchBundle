@@ -27,7 +27,7 @@ declare(strict_types=1);
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace whatwedo\SearchBundle\Command;
+namespace araise\SearchBundle\Command;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,11 +35,11 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use whatwedo\CoreBundle\Command\BaseCommand;
-use whatwedo\CoreBundle\Manager\FormatterManager;
-use whatwedo\SearchBundle\Entity\Index;
-use whatwedo\SearchBundle\Manager\IndexManager;
-use whatwedo\SearchBundle\Repository\IndexRepository;
+use araise\CoreBundle\Command\BaseCommand;
+use araise\CoreBundle\Manager\FormatterManager;
+use araise\SearchBundle\Entity\Index;
+use araise\SearchBundle\Manager\IndexManager;
+use araise\SearchBundle\Repository\IndexRepository;
 
 class SearchCommand extends BaseCommand
 {

@@ -27,7 +27,7 @@ declare(strict_types=1);
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace whatwedo\SearchBundle\Entity;
+namespace araise\SearchBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,7 +35,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Index(columns: ['content'], flags: ['fulltext'])]
 #[ORM\Index(columns: ['model'])]
 #[ORM\UniqueConstraint(name: 'search_index', columns: ['foreign_id', 'model', 'grp'])]
-#[ORM\Entity(repositoryClass: 'whatwedo\SearchBundle\Repository\IndexRepository')]
+#[ORM\Entity(repositoryClass: 'araise\SearchBundle\Repository\IndexRepository')]
 class Index
 {
     /**

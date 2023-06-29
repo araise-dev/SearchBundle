@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Manager;
+namespace araise\SearchBundle\Manager;
 
-use whatwedo\SearchBundle\Exception\FilterChainDefinedException;
-use whatwedo\SearchBundle\Filter\FilterInterface;
-use whatwedo\SearchBundle\Tokenizer\StandardTokenizer;
-use whatwedo\SearchBundle\Tokenizer\TokenizerInterface;
+use araise\SearchBundle\Exception\FilterChainDefinedException;
+use araise\SearchBundle\Filter\FilterInterface;
+use araise\SearchBundle\Tokenizer\StandardTokenizer;
+use araise\SearchBundle\Tokenizer\TokenizerInterface;
 
 class FilterManager
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\DependencyInjection;
+namespace araise\SearchBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use whatwedo\SearchBundle\Manager\IndexManager;
+use araise\SearchBundle\Manager\IndexManager;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -41,7 +41,7 @@ class whatwedoSearchExtension extends Extension implements PrependExtensionInter
         $doctrineConfig = $container->getExtensionConfig('doctrine_migrations');
         $container->prependExtensionConfig('doctrine_migrations', [
             'migrations_paths' => array_merge(array_pop($doctrineConfig)['migrations_paths'] ?? [], [
-                'whatwedo\SearchBundle\Migrations' => '@whatwedoSearchBundle/Migrations',
+                'araise\SearchBundle\Migrations' => '@whatwedoSearchBundle/Migrations',
             ]),
         ]);
     }

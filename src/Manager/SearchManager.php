@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Manager;
+namespace araise\SearchBundle\Manager;
 
 use Doctrine\ORM\EntityManagerInterface;
-use whatwedo\SearchBundle\Model\ResultItem;
-use whatwedo\SearchBundle\Repository\IndexRepository;
+use araise\SearchBundle\Model\ResultItem;
+use araise\SearchBundle\Repository\IndexRepository;
 
 class SearchManager
 {

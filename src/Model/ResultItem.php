@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Model;
+namespace araise\SearchBundle\Model;
 
 class ResultItem
 {

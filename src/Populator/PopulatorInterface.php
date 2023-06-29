@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Populator;
+namespace araise\SearchBundle\Populator;
 
 interface PopulatorInterface
 {

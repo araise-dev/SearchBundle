@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests;
+namespace araise\SearchBundle\Tests;
 
-use whatwedo\SearchBundle\Manager\SearchManager;
-use whatwedo\SearchBundle\Populator\OneFieldPopulator;
-use whatwedo\SearchBundle\Populator\PopulatorInterface;
-use whatwedo\SearchBundle\Tests\App\Entity\Company;
+use araise\SearchBundle\Manager\SearchManager;
+use araise\SearchBundle\Populator\OneFieldPopulator;
+use araise\SearchBundle\Populator\PopulatorInterface;
+use araise\SearchBundle\Tests\App\Entity\Company;
 
 class SearchTest extends AbstractSeaarchTest
 {

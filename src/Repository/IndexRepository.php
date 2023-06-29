@@ -27,16 +27,16 @@ declare(strict_types=1);
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace whatwedo\SearchBundle\Repository;
+namespace araise\SearchBundle\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Persistence\ManagerRegistry;
-use whatwedo\SearchBundle\Annotation\Searchable;
-use whatwedo\SearchBundle\Entity\Index;
-use whatwedo\SearchBundle\Entity\PostSearchInterface;
-use whatwedo\SearchBundle\Entity\PreSearchInterface;
+use araise\SearchBundle\Annotation\Searchable;
+use araise\SearchBundle\Entity\Index;
+use araise\SearchBundle\Entity\PostSearchInterface;
+use araise\SearchBundle\Entity\PreSearchInterface;
 
 class IndexRepository extends ServiceEntityRepository
 {

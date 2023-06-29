@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests;
+namespace araise\SearchBundle\Tests;
 
 use PHPUnit\Framework\TestCase;
-use whatwedo\SearchBundle\Tokenizer\StandardTokenizer;
+use araise\SearchBundle\Tokenizer\StandardTokenizer;
 
 class TokenizerTest extends TestCase
 {

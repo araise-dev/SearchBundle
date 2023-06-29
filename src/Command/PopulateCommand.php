@@ -27,15 +27,15 @@ declare(strict_types=1);
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace whatwedo\SearchBundle\Command;
+namespace araise\SearchBundle\Command;
 
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use whatwedo\CoreBundle\Command\BaseCommand;
-use whatwedo\SearchBundle\Populator\PopulateOutputInterface;
-use whatwedo\SearchBundle\Populator\PopulatorInterface;
+use araise\CoreBundle\Command\BaseCommand;
+use araise\SearchBundle\Populator\PopulateOutputInterface;
+use araise\SearchBundle\Populator\PopulatorInterface;
 
 class PopulateCommand extends BaseCommand implements PopulateOutputInterface
 {

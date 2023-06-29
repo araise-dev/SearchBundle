@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests\App\Entity;
+namespace araise\SearchBundle\Tests\App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use whatwedo\SearchBundle\Annotation\Index;
+use araise\SearchBundle\Annotation\Index;
 
 #[ORM\Table(name: 'company')]
-#[ORM\Entity(repositoryClass: 'whatwedo\SearchBundle\Tests\App\Repository\CompanyRepository')]
+#[ORM\Entity(repositoryClass: 'araise\SearchBundle\Tests\App\Repository\CompanyRepository')]
 class Company
 {
     #[ORM\Column(type: 'integer')]
@@ -25,7 +25,7 @@ class Company
     #[Assert\NotNull]
     private ?string $name = null;
 
-    #[Index(formatter: 'whatwedo\SearchBundle\Tests\App\Formatter\DummyFormatter')]
+    #[Index(formatter: 'araise\SearchBundle\Tests\App\Formatter\DummyFormatter')]
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
     #[Assert\NotNull]

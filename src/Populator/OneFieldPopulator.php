@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Populator;
+namespace araise\SearchBundle\Populator;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
-use whatwedo\SearchBundle\Entity\Index;
-use whatwedo\SearchBundle\Exception\MethodNotFoundException;
+use araise\SearchBundle\Entity\Index;
+use araise\SearchBundle\Exception\MethodNotFoundException;
 
 class OneFieldPopulator extends AbstractPopulator
 {
@@ -39,7 +39,7 @@ class OneFieldPopulator extends AbstractPopulator
 
             $idMethod = $this->indexManager->getIdMethod($class);
 
-            /** @var \whatwedo\SearchBundle\Annotation\Index $index */
+            /** @var \araise\SearchBundle\Annotation\Index $index */
             $groupedContent = $this->collectEntityIndexData($entityName, $entity);
 
             foreach ($groupedContent as $group => $content) {
@@ -130,7 +130,7 @@ class OneFieldPopulator extends AbstractPopulator
         $indexes = $this->indexManager->getIndexesOfEntity($entityName);
 
         $content = [];
-        /** @var \whatwedo\SearchBundle\Annotation\Index $index */
+        /** @var \araise\SearchBundle\Annotation\Index $index */
         foreach ($indexes as $field => $index) {
             $fieldMethod = $this->indexManager->getFieldAccessorMethod($entityName, $field);
 

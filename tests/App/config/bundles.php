@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
-use whatwedo\CoreBundle\whatwedoCoreBundle;
-use whatwedo\SearchBundle\whatwedoSearchBundle;
+use araise\CoreBundle\whatwedoCoreBundle;
+use araise\SearchBundle\whatwedoSearchBundle;
 use Zenstruck\Foundry\ZenstruckFoundryBundle;
 
 return [

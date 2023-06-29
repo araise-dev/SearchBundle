@@ -1,9 +1,9 @@
 {
-    "name": "whatwedo/search-bundle",
+    "name": "araise/search-bundle",
     "type": "symfony-bundle",
     "description": "Full text search on Doctrine entities without external dependencies.",
     "license": "MIT",
-    "homepage": "https://whatwedo.github.io/SearchBundle/#/",
+    "homepage": "https://araise.dev",
     "minimum-stability": "stable",
     "authors": [
         {
@@ -39,24 +39,10 @@
     },
     "autoload": {
         "psr-4": {
-            "whatwedo\\SearchBundle\\": "src/",
-            "whatwedo\\SearchBundle\\Tests\\": "tests/"
+            "araise\\SearchBundle\\": "src/",
+            "araise\\SearchBundle\\Tests\\": "tests/"
         }
     },
-    "repositories": [
-        {
-            "type": "package",
-            "package": {
-                "name": "twbs/icons",
-                "version": "1.8.1",
-                "source": {
-                    "url": "https://github.com/twbs/icons",
-                    "type": "git",
-                    "reference": "tags/v1.8.1"
-                }
-            }
-        }
-    ],
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true

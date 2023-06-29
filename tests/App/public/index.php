@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
-use whatwedo\SearchBundle\Tests\App\Kernel;
+use araise\SearchBundle\Tests\App\Kernel;
 
 require dirname(__DIR__) . '/config/bootstrap.php';
 

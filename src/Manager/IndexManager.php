@@ -27,15 +27,15 @@ declare(strict_types=1);
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace whatwedo\SearchBundle\Manager;
+namespace araise\SearchBundle\Manager;
 
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\Mapping\ClassMetadata;
-use whatwedo\SearchBundle\Annotation\Index as AttributeIndex;
-use whatwedo\SearchBundle\Entity\Index as EntityIndex;
-use whatwedo\SearchBundle\Exception\MethodNotFoundException;
+use araise\SearchBundle\Annotation\Index as AttributeIndex;
+use araise\SearchBundle\Entity\Index as EntityIndex;
+use araise\SearchBundle\Exception\MethodNotFoundException;
 
 class IndexManager
 {

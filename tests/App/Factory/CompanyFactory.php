@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests\App\Factory;
+namespace araise\SearchBundle\Tests\App\Factory;
 
-use whatwedo\SearchBundle\Tests\App\Entity\Company;
-use whatwedo\SearchBundle\Tests\App\Repository\CompanyRepository;
+use araise\SearchBundle\Tests\App\Entity\Company;
+use araise\SearchBundle\Tests\App\Repository\CompanyRepository;
 use Zenstruck\Foundry\ModelFactory;
 use Zenstruck\Foundry\Proxy;
 use Zenstruck\Foundry\RepositoryProxy;

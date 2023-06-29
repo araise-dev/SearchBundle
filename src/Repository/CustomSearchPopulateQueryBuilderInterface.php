@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Repository;
+namespace araise\SearchBundle\Repository;
 
 use Doctrine\ORM\QueryBuilder;
 

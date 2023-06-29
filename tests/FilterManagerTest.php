@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests;
+namespace araise\SearchBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use whatwedo\SearchBundle\Filter\LowerCaseFilter;
-use whatwedo\SearchBundle\Manager\FilterManager;
-use whatwedo\SearchBundle\Tokenizer\StandardTokenizer;
+use araise\SearchBundle\Filter\LowerCaseFilter;
+use araise\SearchBundle\Manager\FilterManager;
+use araise\SearchBundle\Tokenizer\StandardTokenizer;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 

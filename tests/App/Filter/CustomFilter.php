@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests\App\Filter;
+namespace araise\SearchBundle\Tests\App\Filter;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use whatwedo\SearchBundle\Filter\AbstractFilter;
+use araise\SearchBundle\Filter\AbstractFilter;
 
 class CustomFilter extends AbstractFilter
 {

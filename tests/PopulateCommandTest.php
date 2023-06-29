@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests;
+namespace araise\SearchBundle\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
-use whatwedo\SearchBundle\Entity\Index;
+use araise\SearchBundle\Entity\Index;
 use Zenstruck\Console\Test\InteractsWithConsole;
 
 class PopulateCommandTest extends AbstractIndexTest

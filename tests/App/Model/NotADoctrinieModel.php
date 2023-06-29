@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests\App\Model;
+namespace araise\SearchBundle\Tests\App\Model;
 
 class NotADoctrinieModel
 {

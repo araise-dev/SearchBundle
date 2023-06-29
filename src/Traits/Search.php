@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Traits;
+namespace araise\SearchBundle\Traits;
 
 class Search
 {

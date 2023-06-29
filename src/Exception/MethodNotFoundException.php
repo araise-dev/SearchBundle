@@ -27,7 +27,7 @@ declare(strict_types=1);
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace whatwedo\SearchBundle\Exception;
+namespace araise\SearchBundle\Exception;
 
 class MethodNotFoundException extends \Exception
 {

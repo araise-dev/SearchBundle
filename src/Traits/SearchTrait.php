@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Traits;
+namespace araise\SearchBundle\Traits;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Stopwatch\Stopwatch;
-use whatwedo\SearchBundle\Manager\SearchManager;
-use whatwedo\SearchBundle\Model\ResultItem;
+use araise\SearchBundle\Manager\SearchManager;
+use araise\SearchBundle\Model\ResultItem;
 
 trait SearchTrait
 {
-    private static $definitionManagerClass = 'whatwedo\CrudBundle\Manager\DefinitionManager';
+    private static $definitionManagerClass = 'araise\CrudBundle\Manager\DefinitionManager';
 
     private array $searchOptions = [];
 

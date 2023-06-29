@@ -27,9 +27,9 @@ declare(strict_types=1);
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace whatwedo\SearchBundle\Annotation;
+namespace araise\SearchBundle\Annotation;
 
-use whatwedo\CoreBundle\Formatter\DefaultFormatter;
+use araise\CoreBundle\Formatter\DefaultFormatter;
 
 #[\Attribute]
 class Index

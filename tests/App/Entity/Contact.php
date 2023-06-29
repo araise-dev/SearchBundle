@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests\App\Entity;
+namespace araise\SearchBundle\Tests\App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use whatwedo\SearchBundle\Annotation\Index;
+use araise\SearchBundle\Annotation\Index;
 
 #[ORM\Table(name: 'contact')]
-#[ORM\Entity(repositoryClass: 'whatwedo\SearchBundle\Tests\App\Repository\ContactRepository')]
+#[ORM\Entity(repositoryClass: 'araise\SearchBundle\Tests\App\Repository\ContactRepository')]
 class Contact implements \Stringable
 {
     #[ORM\Column(type: 'integer')]

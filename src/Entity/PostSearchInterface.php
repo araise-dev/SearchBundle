@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Entity;
+namespace araise\SearchBundle\Entity;
 
 interface PostSearchInterface
 {

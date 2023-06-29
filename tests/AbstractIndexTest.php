@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests;
+namespace araise\SearchBundle\Tests;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use whatwedo\SearchBundle\Tests\App\Entity\Company;
-use whatwedo\SearchBundle\Tests\App\Entity\Contact;
-use whatwedo\SearchBundle\Tests\App\Factory\CompanyFactory;
-use whatwedo\SearchBundle\Tests\App\Factory\ContactFactory;
+use araise\SearchBundle\Tests\App\Entity\Company;
+use araise\SearchBundle\Tests\App\Entity\Contact;
+use araise\SearchBundle\Tests\App\Factory\CompanyFactory;
+use araise\SearchBundle\Tests\App\Factory\ContactFactory;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 

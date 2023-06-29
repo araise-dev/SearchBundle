@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Populator;
+namespace araise\SearchBundle\Populator;
 
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
-use whatwedo\CoreBundle\Manager\FormatterManager;
-use whatwedo\SearchBundle\Exception\ClassNotDoctrineMappedException;
-use whatwedo\SearchBundle\Exception\ClassNotIndexedEntityException;
-use whatwedo\SearchBundle\Manager\IndexManager;
-use whatwedo\SearchBundle\Repository\CustomSearchPopulateQueryBuilderInterface;
+use araise\CoreBundle\Manager\FormatterManager;
+use araise\SearchBundle\Exception\ClassNotDoctrineMappedException;
+use araise\SearchBundle\Exception\ClassNotIndexedEntityException;
+use araise\SearchBundle\Manager\IndexManager;
+use araise\SearchBundle\Repository\CustomSearchPopulateQueryBuilderInterface;
 
 abstract class AbstractPopulator implements PopulatorInterface
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle\Tests;
+namespace araise\SearchBundle\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use whatwedo\SearchBundle\Manager\FilterManager;
-use whatwedo\SearchBundle\Manager\IndexManager;
-use whatwedo\SearchBundle\Manager\SearchManager;
+use araise\SearchBundle\Manager\FilterManager;
+use araise\SearchBundle\Manager\IndexManager;
+use araise\SearchBundle\Manager\SearchManager;
 
 class WiringTest extends KernelTestCase
 {

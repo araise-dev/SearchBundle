@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace whatwedo\SearchBundle;
+namespace araise\SearchBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
