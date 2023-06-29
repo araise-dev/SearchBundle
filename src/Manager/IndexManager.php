@@ -66,7 +66,7 @@ class IndexManager
         $dbPlatform = $connection->getDatabasePlatform();
         $tableName = $this->getEntityManager()->getClassMetadata(EntityIndex::class)->getTableName();
         $query = $dbPlatform->getTruncateTableSql($tableName);
-        $connection->executeStatement($query);
+        $connection->prepare($query)->executeStatement();
     }
 
     /**

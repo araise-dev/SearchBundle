@@ -1,4 +1,4 @@
-[![Latest Stable Version](https://poser.pugx.org/araise-dev/search-bundle/v/stable)](https://packagist.org/packages/araise-dev/search-bundle)
+[![Latest Stable Version](https://poser.pugx.org/araise/search-bundle/v/stable)](https://packagist.org/packages/araise/search-bundle)
 
 # araiseSearchBundle
 

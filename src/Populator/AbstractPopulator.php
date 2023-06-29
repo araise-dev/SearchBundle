@@ -10,7 +10,9 @@ use araise\SearchBundle\Exception\ClassNotIndexedEntityException;
 use araise\SearchBundle\Manager\IndexManager;
 use araise\SearchBundle\Repository\CustomSearchPopulateQueryBuilderInterface;
 use Doctrine\Common\Util\ClassUtils;
+use Doctrine\DBAL\Logging\Middleware;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\NullLogger;
 
 abstract class AbstractPopulator implements PopulatorInterface
 {
@@ -32,7 +34,8 @@ abstract class AbstractPopulator implements PopulatorInterface
 
     public function populate(?PopulateOutputInterface $output = null, ?string $entityClass = null): void
     {
-        $this->entityManager->getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->entityManager->getConnection()->getConfiguration()->setMiddlewares([new Middleware(new NullLogger())]);
+
         if ($this->disableEntityListener) {
             return;
         }
@@ -139,7 +142,7 @@ abstract class AbstractPopulator implements PopulatorInterface
             $queryBuilder->from($entityName, 'e')->select('e');
         }
 
-        $entities = $queryBuilder->getQuery()->iterate();
+        $entities = array_map(static fn (mixed $entity) => [$entity], iterator_to_array($queryBuilder->getQuery()->toIterable()));
         if ($repository instanceof CustomSearchPopulateQueryBuilderInterface) {
             $entityCount = $repository->customSearchPopulateCount();
         } else {
@@ -161,21 +164,30 @@ abstract class AbstractPopulator implements PopulatorInterface
     {
         $connection = $this->entityManager->getConnection();
         $bulkInsertStatetment = $connection->prepare('INSERT INTO araise_search_index (foreign_id, model, grp, content) VALUES ' . implode(',', $insertSqlParts));
-        $bulkInsertStatetment->executeStatement($insertData);
+        $counter = 0;
+        foreach ($insertData as $data) {
+            $counter++;
+            $bulkInsertStatetment->bindValue($counter, $data);
+        }
+        $bulkInsertStatetment->executeStatement();
     }
 
     protected function update(string $id, string $content)
     {
         $connection = $this->entityManager->getConnection();
         $updateStatement = $connection->prepare('UPDATE araise_search_index SET content=? WHERE id=?');
-        $updateStatement->executeStatement([$content, $id]);
+        $updateStatement->bindValue(1, $content);
+        $updateStatement->bindValue(2, $id);
+        $updateStatement->executeStatement();
     }
 
     protected function delete(string $foreignId, string $model)
     {
         $connection = $this->entityManager->getConnection();
         $updateStatement = $connection->prepare('DELETE FROM araise_search_index WHERE foreign_id=? and model=?');
-        $updateStatement->executeStatement([$foreignId, $model]);
+        $updateStatement->bindValue(1, $foreignId);
+        $updateStatement->bindValue(2, $model);
+        $updateStatement->executeStatement();
     }
 
     protected function entityWasIndexed(object $entity): bool
