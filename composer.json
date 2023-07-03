@@ -29,7 +29,6 @@
         "nyholm/symfony-bundle-test": "^1.8",
         "doctrine/doctrine-bundle": "^2.5.5",
         "whatwedo/php-coding-standard": "^1.0",
-        "araise/core-bundle": "dev-main as 1.0",
         "zenstruck/foundry": "^1.16",
         "zenstruck/console-test": "^v1.1.0",
         "symfony/orm-pack": "^1.0",
