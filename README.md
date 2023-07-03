@@ -6,7 +6,7 @@ This bundle is part of the [araise.dev](https://araise.dev) framework.
 
 ## Documentation
 
-[araise-dev.github.io/SearchBundle](https://araise-dev.github.io/SearchBundle/#/)
+[search.docs.araise.dev](https://search.docs.araise.dev/#/)
 
 ## License
 
