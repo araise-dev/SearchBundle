@@ -1,6 +1,6 @@
 # Getting Started
 
-This documentation provides a basic view of the possibilities of the araiseSearchBundle. 
+This documentation provides a basic view of the possibilities of the araise search bundle. 
 
 ## Requirements
 
@@ -10,24 +10,6 @@ We don't guarantee that it works on lower versions.
 ## Installation
 
 ### Composer
-The bundle depends on bootstrap icons. To get them running smoothly in your project
-add this repository to you composer.json: ([Sadly composer cannot load repositories recursively](https://getcomposer.org/doc/faqs/why-cant-composer-load-repositories-recursively.md))
-```json
-"repositories": [
-    {
-        "type": "package",
-        "package": {
-            "name": "twbs/icons",
-            "version": "1.8.1",
-            "source": {
-                "url": "https://github.com/twbs/icons",
-                "type": "git",
-                "reference": "tags/v1.8.1"
-            }
-        }
-    }
-]
-```
 Then the bundle to your dependencies and install it.
 
 ```
