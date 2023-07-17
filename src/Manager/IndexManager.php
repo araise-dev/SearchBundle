@@ -157,12 +157,12 @@ class IndexManager
             return $field;
         }
         foreach ($prefixes as $prefix) {
-            $method = $prefix . ucfirst($field);
+            $method = $prefix.ucfirst($field);
             if (method_exists($entityName, $method)) {
                 return $method;
             }
         }
-        throw new MethodNotFoundException('Accessor method of field ' . $field . ' of entity ' . $entityName . ' not found');
+        throw new MethodNotFoundException('Accessor method of field '.$field.' of entity '.$entityName.' not found');
     }
 
     public function getConfig(): array

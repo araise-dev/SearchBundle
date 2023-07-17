@@ -57,7 +57,7 @@ class IndexRepository extends ServiceEntityRepository
             ->addGroupBy('_matchQuote')
             ->addOrderBy('_matchQuote', 'DESC')
             ->setParameter('query', $query)
-            ->setParameter('queryWildcard', '%' . $query . '%')
+            ->setParameter('queryWildcard', '%'.$query.'%')
             ->setParameter('minScore', 0);
 
         if ($entity) {
@@ -134,16 +134,16 @@ class IndexRepository extends ServiceEntityRepository
         $ors = $qb->expr()->orX();
 
         foreach ($entities as $key => $entity) {
-            $ors->add($qb->expr()->eq('i.model', ':entity_' . $key));
-            $qb->setParameter('entity_' . $key, $entity);
+            $ors->add($qb->expr()->eq('i.model', ':entity_'.$key));
+            $qb->setParameter('entity_'.$key, $entity);
         }
         $qb->andWhere(
             $ors
         );
 
         foreach ($groups as $key => $group) {
-            $qb->andWhere('i.group = :groupName_' . $key)
-                ->setParameter(':groupName_' . $key, $group);
+            $qb->andWhere('i.group = :groupName_'.$key)
+                ->setParameter(':groupName_'.$key, $group);
         }
 
         $result = $qb->getQuery()->getResult();

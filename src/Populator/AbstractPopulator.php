@@ -126,7 +126,7 @@ abstract class AbstractPopulator implements PopulatorInterface
             return false;
         }
 
-        $this->output->log('Indexing of entity ' . $entityName);
+        $this->output->log('Indexing of entity '.$entityName);
 
         // Get required meta information
         $indexes = $this->indexManager->getIndexesOfEntity($entityName);
@@ -163,7 +163,7 @@ abstract class AbstractPopulator implements PopulatorInterface
     protected function bulkInsert(array $insertSqlParts, array $insertData)
     {
         $connection = $this->entityManager->getConnection();
-        $bulkInsertStatetment = $connection->prepare('INSERT INTO araise_search_index (foreign_id, model, grp, content) VALUES ' . implode(',', $insertSqlParts));
+        $bulkInsertStatetment = $connection->prepare('INSERT INTO araise_search_index (foreign_id, model, grp, content) VALUES '.implode(',', $insertSqlParts));
         $counter = 0;
         foreach ($insertData as $data) {
             $counter++;

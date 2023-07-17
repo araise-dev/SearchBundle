@@ -47,7 +47,7 @@ class IndexListenerTest extends AbstractIndexTest
                         break;
                 }
 
-                self::assertSame($value, $indexResult->getContent(), 'test on group ' . $indexResult->getGroup() . ' failed');
+                self::assertSame($value, $indexResult->getContent(), 'test on group '.$indexResult->getGroup().' failed');
             }
         }
     }
@@ -98,7 +98,7 @@ class IndexListenerTest extends AbstractIndexTest
                         break;
                 }
 
-                self::assertSame($value, $indexResult->getContent(), 'test on group ' . $indexResult->getGroup() . ' failed');
+                self::assertSame($value, $indexResult->getContent(), 'test on group '.$indexResult->getGroup().' failed');
             }
         }
     }
