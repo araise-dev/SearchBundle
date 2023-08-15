@@ -63,7 +63,7 @@ trait SearchTrait
                 try {
                     $definition = $definitionManager->getDefinitionByEntity($item->getEntity());
 
-                    return $router->generate($definition::getRoutePrefix() . '_show', [
+                    return $router->generate($definition::getRoutePrefix().'_show', [
                         'id' => $item->getId(),
                     ]);
                 } catch (\InvalidArgumentException|RouteNotFoundException $e) {

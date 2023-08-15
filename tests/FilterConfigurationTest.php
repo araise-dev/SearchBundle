@@ -16,7 +16,7 @@ class FilterConfigurationTest extends KernelTestCase
     public function testConfig()
     {
         $config = Yaml::parse(
-            file_get_contents(__DIR__ . '/resources/config/basic.yaml')
+            file_get_contents(__DIR__.'/resources/config/basic.yaml')
         );
 
         $processor = new Processor();
@@ -35,7 +35,7 @@ class FilterConfigurationTest extends KernelTestCase
         $filterManager = self::getContainer()->get(FilterManager::class);
 
         $config = Yaml::parse(
-            file_get_contents(__DIR__ . '/resources/config/basic.yaml')
+            file_get_contents(__DIR__.'/resources/config/basic.yaml')
         );
 
         $processor = new Processor();

@@ -1,0 +1,5 @@
+araise_search:
+    search_result_for: Results for
+    name: Name
+    type: Type
+    score: Score
