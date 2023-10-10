@@ -82,7 +82,7 @@ trait SearchTrait
                 try {
                     $definition = $definitionManager->getDefinitionByEntity($item->getEntity());
 
-                    return $definition::getEntityTitle();
+                    return $definition->getEntityTitle();
                 } catch (\InvalidArgumentException|RouteNotFoundException $e) {
                     // not found
                 }
