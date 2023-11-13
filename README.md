@@ -1,6 +1,6 @@
 [![Latest Stable Version](https://poser.pugx.org/araise/search-bundle/v/stable)](https://packagist.org/packages/araise/search-bundle)
 
-# araiseSearchBundle
+# araise Search Bundle - Documentation
 
 This bundle is part of the [araise.dev](https://araise.dev) framework.
 
