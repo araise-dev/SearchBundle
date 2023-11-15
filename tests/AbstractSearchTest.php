@@ -103,6 +103,19 @@ abstract class AbstractSearchTest extends KernelTestCase
         ]);
     }
 
+    /**
+     * @param ResultItem[] $actualResultItems
+     */
+    protected function assertCompanyNamesInResult($expectedNames, array $actualResultItems): void
+    {
+        foreach ($actualResultItems as $item) {
+            $entity = $item->getEntity();
+
+            $this->assertInstanceOf(Company::class, $entity);
+            $this->assertContains($entity->getName(), $expectedNames);
+        }
+    }
+
     protected function setUp(): void
     {
         parent::setUp();

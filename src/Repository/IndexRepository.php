@@ -118,7 +118,13 @@ class IndexRepository extends ServiceEntityRepository
      */
     public function searchEntities($query, array $entities = [], array $groups = []): array
     {
+        $queryWildcard = $this->queryWildcardEscape($query);
         $query = $this->queryEscape($query);
+
+        if ($queryWildcard !== $query) {
+            return $this->searchEntitiesLike($queryWildcard, $query, $entities, $groups);
+        }
+
         $qb = $this->createQueryBuilder('i');
         $qb->select('i.foreignId as id');
         $qb->addSelect('MATCH_AGAINST(i.content, :query) AS _matchQuote');
@@ -146,9 +152,7 @@ class IndexRepository extends ServiceEntityRepository
                 ->setParameter(':groupName_'.$key, $group);
         }
 
-        $result = $qb->getQuery()->getResult();
-
-        return $result;
+        return $qb->getQuery()->getResult();
     }
 
     public function findExisting(string $entityFqcn, string $group, int $foreignId): ?Index
@@ -170,5 +174,48 @@ class IndexRepository extends ServiceEntityRepository
         $query = preg_replace('/[^\p{L}\p{N}_]+/u', ' ', $query);
         // Replace characters-operators with spaces
         return preg_replace('/[+\-><\(\)~*\"@]+/', ' ', $query);
+    }
+
+    private function queryWildcardEscape(string $query): string
+    {
+        // Replace all non word characters with spaces
+        $query = preg_replace('/[^\p{L}\p{N}*_]+/u', ' ', $query);
+        // Replace characters-operators with spaces
+        $query = preg_replace('/[+\-><\(\)~\"@]+/', ' ', $query);
+
+        return preg_replace('/[*]+/', '%', $query);
+    }
+
+    private function searchEntitiesLike(string $queryWildcard, string $query, array $entities = [], array $groups = [])
+    {
+        $qb = $this->createQueryBuilder('i');
+        $qb->select('i.foreignId as id')
+            ->addSelect('MATCH_AGAINST(i.content, :query) AS _matchQuote')
+            ->addSelect('i.model')
+            ->where('i.content LIKE :queryWildcard')
+            ->groupBy('i.foreignId')
+            ->addGroupBy('_matchQuote')
+            ->addGroupBy('i.model')
+            ->addOrderBy('_matchQuote', 'DESC');
+
+        $qb->setParameter('query', sprintf('*%s*', $query))
+            ->setParameter('queryWildcard', sprintf('%s', $queryWildcard));
+
+        $ors = $qb->expr()->orX();
+
+        foreach ($entities as $key => $entity) {
+            $ors->add($qb->expr()->eq('i.model', ':entity_'.$key));
+            $qb->setParameter('entity_'.$key, $entity);
+        }
+        $qb->andWhere(
+            $ors
+        );
+
+        foreach ($groups as $key => $group) {
+            $qb->andWhere('i.group = :groupName_'.$key)
+                ->setParameter(':groupName_'.$key, $group);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }
