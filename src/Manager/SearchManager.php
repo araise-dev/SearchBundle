@@ -19,7 +19,7 @@ class SearchManager
     /**
      * @return array|ResultItem[]
      */
-    public function searchByEntites(string $searchTerm, array $entityFqcns = [], array $groups = [])
+    public function searchByEntites(string $searchTerm, array $entityFqcns = [], array $groups = []): array
     {
         $indexResults = $this->indexRepository->searchEntities($searchTerm, $entityFqcns, $groups);
         $loadedEntities = $this->loadEntities($indexResults);
@@ -52,7 +52,7 @@ class SearchManager
         return $groupByClass;
     }
 
-    private function loadEntities(array $indexResults)
+    private function loadEntities(array $indexResults): array
     {
         $groupedEntities = [];
 

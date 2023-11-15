@@ -4,16 +4,21 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Tests;
 
+use araise\SearchBundle\Manager\SearchManager;
+use araise\SearchBundle\Model\ResultItem;
+use araise\SearchBundle\Tests\App\Entity\Company;
 use araise\SearchBundle\Tests\App\Factory\CompanyFactory;
 use araise\SearchBundle\Tests\App\Factory\ContactFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
 
-abstract class AbstractSeaarchTest extends KernelTestCase
+abstract class AbstractSearchTest extends KernelTestCase
 {
     use Factories;
     use ResetDatabase;
+
+    protected SearchManager $searchManager;
 
     protected function createEntities()
     {
@@ -42,6 +47,18 @@ abstract class AbstractSeaarchTest extends KernelTestCase
             'taxIdentificationNumber' => '001.002.008',
         ]);
         CompanyFactory::createOne([
+            'name' => 'Sun Microsystems',
+            'city' => 'California',
+            'country' => 'USA',
+            'taxIdentificationNumber' => '001.002.003',
+        ]);
+        CompanyFactory::createOne([
+            'name' => 'Soapstone Networks',
+            'city' => 'Massachusetts',
+            'country' => 'USA',
+            'taxIdentificationNumber' => '001.002.003',
+        ]);
+        CompanyFactory::createOne([
             'name' => 'The Company',
             'city' => 'Los Angeles',
             'country' => 'USA',
@@ -49,7 +66,7 @@ abstract class AbstractSeaarchTest extends KernelTestCase
         ]);
         CompanyFactory::createOne([
             'name' => 'Mauri Company',
-            'city' => 'Bümplitz',
+            'city' => 'Bümpliz',
             'country' => 'Switzerland',
             'taxIdentificationNumber' => '001.001.003',
         ]);
@@ -84,5 +101,14 @@ abstract class AbstractSeaarchTest extends KernelTestCase
                 'name' => 'The Company',
             ]),
         ]);
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        /** @var SearchManager $searchManager */
+        $searchManager = self::getContainer()->get(SearchManager::class);
+        $this->searchManager = $searchManager;
     }
 }
