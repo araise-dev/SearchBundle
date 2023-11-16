@@ -14,7 +14,7 @@ class SearchTest extends AbstractSearchTest
     {
         $this->createEntities();
 
-        $result = $this->searchManager->searchByEntites('Mauri');
+        $result = $this->searchManager->searchByEntities('Mauri');
 
         self::assertCount(6, $result);
     }
@@ -23,7 +23,7 @@ class SearchTest extends AbstractSearchTest
     {
         $this->createEntities();
 
-        $result = $this->searchManager->searchByEntites('Mauri', [Company::class]);
+        $result = $this->searchManager->searchByEntities('Mauri', [Company::class]);
 
         self::assertCount(1, $result);
     }
@@ -32,7 +32,7 @@ class SearchTest extends AbstractSearchTest
     {
         $this->createEntities();
 
-        $result = $this->searchManager->searchByEntites('Mauri', [], ['company']);
+        $result = $this->searchManager->searchByEntities('Mauri', [], ['company']);
 
         self::assertCount(1, $result);
     }

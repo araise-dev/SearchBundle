@@ -101,7 +101,7 @@ trait SearchTrait
 
         $results = [];
         if (! empty($searchTerm)) {
-            $results = $searchManager->searchByEntites(
+            $results = $searchManager->searchByEntities(
                 $searchTerm,
                 $this->searchOptions[Search::OPT_ENTITIES],
                 $this->searchOptions[Search::OPT_GROUPS]

@@ -6,6 +6,7 @@ namespace araise\SearchBundle\Manager;
 
 use araise\SearchBundle\Model\ResultItem;
 use araise\SearchBundle\Repository\IndexRepository;
+use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\ORM\EntityManagerInterface;
 
 class SearchManager
@@ -17,9 +18,11 @@ class SearchManager
     }
 
     /**
-     * @return array|ResultItem[]
+     * @return ResultItem[]
+     * @throws AnnotationException
+     * @throws \ReflectionException
      */
-    public function searchByEntites(string $searchTerm, array $entityFqcns = [], array $groups = []): array
+    public function searchByEntities(string $searchTerm, array $entityFqcns = [], array $groups = []): array
     {
         $indexResults = $this->indexRepository->searchEntities($searchTerm, $entityFqcns, $groups);
         $loadedEntities = $this->loadEntities($indexResults);

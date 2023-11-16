@@ -6,9 +6,11 @@ namespace araise\SearchBundle\Tests;
 
 use araise\SearchBundle\Manager\SearchManager;
 use araise\SearchBundle\Model\ResultItem;
+use araise\SearchBundle\Repository\IndexRepository;
 use araise\SearchBundle\Tests\App\Entity\Company;
 use araise\SearchBundle\Tests\App\Factory\CompanyFactory;
 use araise\SearchBundle\Tests\App\Factory\ContactFactory;
+use araise\SearchBundle\Tests\App\Repository\CompanyRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
@@ -18,7 +20,11 @@ abstract class AbstractSearchTest extends KernelTestCase
     use Factories;
     use ResetDatabase;
 
+    protected IndexRepository $indexRepository;
+
     protected SearchManager $searchManager;
+
+    private CompanyRepository $companyRepository;
 
     protected function createEntities()
     {
@@ -116,6 +122,18 @@ abstract class AbstractSearchTest extends KernelTestCase
         }
     }
 
+    protected function assertCompanyNamesInResultOfIds(array $expectedNames, array $result): void
+    {
+        foreach ($result as $foundId) {
+            $entity = $this->companyRepository->findOneBy([
+                'id' => $foundId,
+            ]);
+
+            $this->assertInstanceOf(Company::class, $entity);
+            $this->assertContains($entity->getName(), $expectedNames);
+        }
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -123,5 +141,13 @@ abstract class AbstractSearchTest extends KernelTestCase
         /** @var SearchManager $searchManager */
         $searchManager = self::getContainer()->get(SearchManager::class);
         $this->searchManager = $searchManager;
+
+        /** @var IndexRepository $indexRepository */
+        $indexRepository = self::getContainer()->get(IndexRepository::class);
+        $this->indexRepository = $indexRepository;
+
+        /** @var CompanyRepository $companyRepository */
+        $companyRepository = self::getContainer()->get(CompanyRepository::class);
+        $this->companyRepository = $companyRepository;
     }
 }

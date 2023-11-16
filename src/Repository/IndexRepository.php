@@ -34,7 +34,6 @@ use araise\SearchBundle\Entity\Index;
 use araise\SearchBundle\Entity\PostSearchInterface;
 use araise\SearchBundle\Entity\PreSearchInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -48,17 +47,26 @@ class IndexRepository extends ServiceEntityRepository
     public function search($query, $entity = null, $group = null): array
     {
         $query = $this->queryEscape($query);
+
         $qb = $this->createQueryBuilder('i')
             ->select('i.foreignId')
             ->addSelect('MATCH_AGAINST(i.content, :query) AS _matchQuote')
-            ->where('MATCH_AGAINST(i.content, :query) > :minScore')
-            ->orWhere('i.content LIKE :queryWildcard')
-            ->groupBy('i.foreignId')
+            ->setParameter('query', preg_replace('/%+/', ' ', $query))
+        ;
+
+        if (str_contains($query, '%')) {
+            $qb->where('i.content LIKE :queryWildcard')
+                ->setParameter('queryWildcard', $query);
+        } else {
+            $qb->where('MATCH_AGAINST(i.content, :query) > :minScore')
+                ->orWhere('i.content LIKE :queryWildcard')
+                ->setParameter('queryWildcard', '%'.$query.'%')
+                ->setParameter('minScore', 0);
+        }
+
+        $qb->groupBy('i.foreignId')
             ->addGroupBy('_matchQuote')
-            ->addOrderBy('_matchQuote', 'DESC')
-            ->setParameter('query', $query)
-            ->setParameter('queryWildcard', '%'.$query.'%')
-            ->setParameter('minScore', 0);
+            ->addOrderBy('_matchQuote', 'DESC');
 
         if ($entity) {
             $qb->andWhere('i.model = :entity')
@@ -112,30 +120,29 @@ class IndexRepository extends ServiceEntityRepository
         return $ids;
     }
 
-    /**
-     * @throws AnnotationException
-     * @throws \ReflectionException
-     */
     public function searchEntities($query, array $entities = [], array $groups = []): array
     {
-        $queryWildcard = $this->queryWildcardEscape($query);
         $query = $this->queryEscape($query);
-
-        if ($queryWildcard !== $query) {
-            return $this->searchEntitiesLike($queryWildcard, $query, $entities, $groups);
-        }
 
         $qb = $this->createQueryBuilder('i');
         $qb->select('i.foreignId as id');
         $qb->addSelect('MATCH_AGAINST(i.content, :query) AS _matchQuote');
         $qb->addSelect('i.model');
-        $qb->where('MATCH_AGAINST(i.content, :query) > :minScore');
+
+        if (str_contains($query, '%')) {
+            $qb->where('i.content LIKE :queryWildcard');
+            $qb->setParameter('query', preg_replace('/%+/', ' ', $query));
+            $qb->setParameter('queryWildcard', $query);
+        } else {
+            $qb->where('MATCH_AGAINST(i.content, :query) > :minScore');
+            $qb->setParameter('minScore', 0);
+            $qb->setParameter('query', sprintf('*%s*', $query));
+        }
+
         $qb->groupBy('i.foreignId');
         $qb->addGroupBy('_matchQuote');
         $qb->addGroupBy('i.model');
         $qb->addOrderBy('_matchQuote', 'DESC');
-        $qb->setParameter('query', sprintf('*%s*', $query));
-        $qb->setParameter('minScore', 0);
 
         $ors = $qb->expr()->orX();
 
@@ -171,51 +178,10 @@ class IndexRepository extends ServiceEntityRepository
     protected function queryEscape(string $query): string
     {
         // Replace all non word characters with spaces
-        $query = preg_replace('/[^\p{L}\p{N}_]+/u', ' ', $query);
-        // Replace characters-operators with spaces
-        return preg_replace('/[+\-><\(\)~*\"@]+/', ' ', $query);
-    }
-
-    private function queryWildcardEscape(string $query): string
-    {
-        // Replace all non word characters with spaces
-        $query = preg_replace('/[^\p{L}\p{N}*_]+/u', ' ', $query);
+        $query = preg_replace('/[^\p{L}\p{N}_*]+/u', ' ', $query);
         // Replace characters-operators with spaces
         $query = preg_replace('/[+\-><\(\)~\"@]+/', ' ', $query);
 
         return preg_replace('/[*]+/', '%', $query);
-    }
-
-    private function searchEntitiesLike(string $queryWildcard, string $query, array $entities = [], array $groups = [])
-    {
-        $qb = $this->createQueryBuilder('i');
-        $qb->select('i.foreignId as id')
-            ->addSelect('MATCH_AGAINST(i.content, :query) AS _matchQuote')
-            ->addSelect('i.model')
-            ->where('i.content LIKE :queryWildcard')
-            ->groupBy('i.foreignId')
-            ->addGroupBy('_matchQuote')
-            ->addGroupBy('i.model')
-            ->addOrderBy('_matchQuote', 'DESC');
-
-        $qb->setParameter('query', sprintf('*%s*', $query))
-            ->setParameter('queryWildcard', sprintf('%s', $queryWildcard));
-
-        $ors = $qb->expr()->orX();
-
-        foreach ($entities as $key => $entity) {
-            $ors->add($qb->expr()->eq('i.model', ':entity_'.$key));
-            $qb->setParameter('entity_'.$key, $entity);
-        }
-        $qb->andWhere(
-            $ors
-        );
-
-        foreach ($groups as $key => $group) {
-            $qb->andWhere('i.group = :groupName_'.$key)
-                ->setParameter(':groupName_'.$key, $group);
-        }
-
-        return $qb->getQuery()->getResult();
     }
 }
