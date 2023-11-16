@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class SearchManager
 {
     public function __construct(
-        protected IndexRepository $indexRepository,
+        private readonly IndexRepository $indexRepository,
         private readonly EntityManagerInterface $entityManager
     ) {
     }

@@ -7,7 +7,6 @@ namespace araise\SearchBundle\DependencyInjection;
 use araise\SearchBundle\Manager\IndexManager;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -27,7 +26,6 @@ class araiseSearchExtension extends Extension implements PrependExtensionInterfa
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yaml');
 
-        /** @var Definition $indexManager */
         $indexManager = $container->getDefinition(IndexManager::class);
         $indexManager->addMethodCall('setConfig', [$config]);
 

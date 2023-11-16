@@ -35,6 +35,7 @@ use araise\SearchBundle\Entity\PostSearchInterface;
 use araise\SearchBundle\Entity\PreSearchInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 class IndexRepository extends ServiceEntityRepository
@@ -46,6 +47,9 @@ class IndexRepository extends ServiceEntityRepository
         parent::__construct($registry, Index::class);
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     public function search($query, $entity = null, $group = null): array
     {
         $query = $this->queryEscape($query);
@@ -85,7 +89,7 @@ class IndexRepository extends ServiceEntityRepository
             $reflection = new \ReflectionClass($entity);
             $annotationReader = new AnnotationReader();
 
-            /** @var Searchable $searchableAnnotations */
+            /** @var ?Searchable $searchableAnnotations */
             $searchableAnnotations = $annotationReader->getClassAnnotation($reflection, Searchable::class);
 
             if ($searchableAnnotations) {
@@ -164,6 +168,9 @@ class IndexRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * @throws NonUniqueResultException
+     */
     public function findExisting(string $entityFqcn, string $group, int $foreignId): ?Index
     {
         return $this->createQueryBuilder('i')

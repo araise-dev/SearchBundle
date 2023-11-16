@@ -33,68 +33,21 @@ use araise\CoreBundle\Manager\FormatterManager;
 use araise\SearchBundle\Manager\IndexManager;
 use araise\SearchBundle\Populator\PopulatorInterface;
 use Doctrine\Common\EventSubscriber;
-use Doctrine\DBAL\Statement;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 
 class IndexListener implements EventSubscriber
 {
-    /**
-     * @var IndexManager
-     */
-    protected $indexManager;
-
-    /**
-     * @var Statement
-     */
-    protected $indexInsertStmt;
-
-    /**
-     * @var Statement
-     */
-    protected $indexUpdateStmt;
-
-    /**
-     * @var FormatterManager
-     */
-    protected $formatterManager;
-
-    /**
-     * Prevent infinite recursion.
-     *
-     * @var array
-     */
-    protected static $indexVisited = [];
-
-    /**
-     * Prevent infinite recursion.
-     *
-     * @var array
-     */
-    protected static $removeVisited = [];
-
-    private EntityManagerInterface $entityManager;
-
-    private PopulatorInterface $populator;
-
     public function __construct(
-        IndexManager $indexManager,
-        FormatterManager $formatterManager,
-        EntityManagerInterface $entityManager,
-        PopulatorInterface $populator
+        protected IndexManager $indexManager,
+        protected FormatterManager $formatterManager,
+        private PopulatorInterface $populator
     ) {
-        $this->indexManager = $indexManager;
-        $this->formatterManager = $formatterManager;
-        $this->entityManager = $entityManager;
-        $this->populator = $populator;
     }
 
     /**
      * Returns an array of events this subscriber wants to listen to.
-     *
-     * @return array
      */
-    public function getSubscribedEvents()
+    public function getSubscribedEvents(): array
     {
         return [
             'postPersist',
@@ -103,17 +56,17 @@ class IndexListener implements EventSubscriber
         ];
     }
 
-    public function postPersist(LifecycleEventArgs $args)
+    public function postPersist(LifecycleEventArgs $args): void
     {
         $this->populator->index($args->getObject());
     }
 
-    public function postUpdate(LifecycleEventArgs $args)
+    public function postUpdate(LifecycleEventArgs $args): void
     {
         $this->populator->index($args->getObject());
     }
 
-    public function preRemove(LifecycleEventArgs $args)
+    public function preRemove(LifecycleEventArgs $args): void
     {
         $this->populator->remove($args->getObject());
     }

@@ -7,12 +7,21 @@ namespace araise\SearchBundle\Populator;
 use araise\SearchBundle\Entity\Index;
 use araise\SearchBundle\Exception\MethodNotFoundException;
 use Doctrine\Common\Util\ClassUtils;
+use Doctrine\DBAL;
+use Doctrine\DBAL\Exception;
+use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 
 class OneFieldPopulator extends AbstractPopulator
 {
-    public function index(object $entity)
+    /**
+     * @throws MappingException
+     * @throws MethodNotFoundException
+     * @throws \ReflectionException
+     * @throws Exception
+     */
+    public function index(object $entity): void
     {
         if ($this->disableEntityListener) {
             return;
@@ -39,7 +48,6 @@ class OneFieldPopulator extends AbstractPopulator
 
             $idMethod = $this->indexManager->getIdMethod($class);
 
-            /** @var \araise\SearchBundle\Annotation\Index $index */
             $groupedContent = $this->collectEntityIndexData($entityName, $entity);
 
             foreach ($groupedContent as $group => $content) {
@@ -67,8 +75,9 @@ class OneFieldPopulator extends AbstractPopulator
      * @throws ORMException
      * @throws OptimisticLockException
      * @throws MethodNotFoundException
+     * @throws \ReflectionException|DBAL\Exception
      */
-    protected function indexEntity($entityName)
+    protected function indexEntity(string $entityName): void
     {
         $workingValues = $this->getIndexEntityWorkingValues($entityName);
         if ($workingValues === false) {
@@ -119,12 +128,16 @@ class OneFieldPopulator extends AbstractPopulator
     /**
      * Clean up garbage.
      */
-    protected function gc()
+    protected function gc(): void
     {
         $this->entityManager->clear();
         gc_collect_cycles();
     }
 
+    /**
+     * @throws \ReflectionException
+     * @throws MethodNotFoundException
+     */
     protected function collectEntityIndexData($entityName, $entity): array
     {
         $indexes = $this->indexManager->getIndexesOfEntity($entityName);

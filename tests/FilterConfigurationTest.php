@@ -13,7 +13,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class FilterConfigurationTest extends KernelTestCase
 {
-    public function testConfig()
+    public function testConfig(): void
     {
         $config = Yaml::parse(
             file_get_contents(__DIR__.'/resources/config/basic.yaml')
@@ -29,7 +29,7 @@ class FilterConfigurationTest extends KernelTestCase
         self::assertIsArray($processedConfiguration);
     }
 
-    public function testFilterManagerConfig()
+    public function testFilterManagerConfig(): void
     {
         /** @var FilterManager $filterManager */
         $filterManager = self::getContainer()->get(FilterManager::class);

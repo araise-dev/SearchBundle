@@ -18,6 +18,11 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('araise_search');
         $rootNode = $treeBuilder->getRootNode();
+
+        if (!method_exists($rootNode, 'children')) {
+            throw new \RuntimeException();
+        }
+
         $rootNode
             ->children()
             ->arrayNode('chains')

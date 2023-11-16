@@ -29,141 +29,87 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Entity;
 
+use araise\SearchBundle\Repository\IndexRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Table(name: 'araise_search_index')]
 #[ORM\Index(columns: ['content'], flags: ['fulltext'])]
 #[ORM\Index(columns: ['model'])]
 #[ORM\UniqueConstraint(name: 'search_index', columns: ['foreign_id', 'model', 'grp'])]
-#[ORM\Entity(repositoryClass: 'araise\SearchBundle\Repository\IndexRepository')]
+#[ORM\Entity(repositoryClass: IndexRepository::class)]
 class Index
 {
-    /**
-     * @var int
-     */
     #[ORM\Column(name: 'id', type: 'bigint', nullable: false)]
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
-    protected $id;
+    protected int $id;
 
-    /**
-     * @var int
-     */
     #[ORM\Column(name: 'foreign_id', type: 'integer', nullable: false)]
-    protected $foreignId;
+    protected int $foreignId;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'model', type: 'string', length: 150, nullable: false)]
-    protected $model;
+    protected string $model;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'grp', type: 'string', length: 90, nullable: false)]
-    protected $group;
+    protected string $group;
 
-    /**
-     * @var string
-     */
     #[ORM\Column(name: 'content', type: 'text', nullable: false)]
-    protected $content;
+    protected string $content;
 
-    /**
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     *
-     * @return self
-     */
-    public function setId($id)
+    public function setId(int $id): self
     {
         $this->id = $id;
 
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getForeignId()
+    public function getForeignId(): int
     {
         return $this->foreignId;
     }
 
-    /**
-     * @param int $foreignId
-     *
-     * @return self
-     */
-    public function setForeignId($foreignId)
+    public function setForeignId(int $foreignId): self
     {
         $this->foreignId = $foreignId;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getModel()
+    public function getModel(): string
     {
         return $this->model;
     }
 
-    /**
-     * @param string $model
-     *
-     * @return self
-     */
-    public function setModel($model)
+    public function setModel(string $model): self
     {
         $this->model = $model;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getGroup()
+    public function getGroup(): string
     {
         return $this->group;
     }
 
-    /**
-     * @param string $group
-     *
-     * @return self
-     */
-    public function setGroup($group)
+    public function setGroup(string $group): self
     {
         $this->group = $group;
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
-    /**
-     * @param string $content
-     *
-     * @return self
-     */
-    public function setContent($content)
+    public function setContent(string $content): self
     {
         $this->content = $content;
 

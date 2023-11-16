@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class FilterTest extends TestCase
 {
-    public function testLowerCaseFilter()
+    public function testLowerCaseFilter(): void
     {
         $filter = new LowerCaseFilter();
 
@@ -23,7 +23,7 @@ class FilterTest extends TestCase
         ]));
     }
 
-    public function testRemoveFilter()
+    public function testRemoveFilter(): void
     {
         $filter = new RemoveFilter(['data1']);
 

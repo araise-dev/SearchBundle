@@ -33,36 +33,34 @@ use araise\SearchBundle\Annotation\Index as AttributeIndex;
 use araise\SearchBundle\Entity\Index as EntityIndex;
 use araise\SearchBundle\Exception\MethodNotFoundException;
 use Doctrine\Common\Annotations\Reader;
+use Doctrine\DBAL;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 
 class IndexManager
 {
-    protected ManagerRegistry $doctrine;
-
     protected array $config = [];
 
     protected array $entityFields = [];
 
-    private Reader $annotationReader;
-
     private array $annotationFields = [];
 
     public function __construct(
-        ManagerRegistry $doctrine,
-        Reader $annotationReader
+        protected ManagerRegistry $doctrine,
+        private readonly Reader $annotationReader
     ) {
-        $this->doctrine = $doctrine;
-        $this->annotationReader = $annotationReader;
     }
 
     /**
      * Flush index table.
+     * @throws DBAL\Exception
      */
     public function flush(): void
     {
         $connection = $this->getEntityManager()->getConnection();
+        /** @var DBAL\Platforms\AbstractPlatform $dbPlatform */
         $dbPlatform = $connection->getDatabasePlatform();
         $tableName = $this->getEntityManager()->getClassMetadata(EntityIndex::class)->getTableName();
         $query = $dbPlatform->getTruncateTableSql($tableName);
@@ -71,6 +69,7 @@ class IndexManager
 
     /**
      * Get indexes of given entity.
+     * @throws \ReflectionException
      */
     public function getIndexesOfEntity(string $entityFqcn): array
     {
@@ -101,19 +100,17 @@ class IndexManager
     /**
      * Return true if there are at least one index in the
      * given entity.
+     * @throws \ReflectionException
      */
     public function hasEntityIndexes(string $entity): bool
     {
         $indexes = $this->getIndexesOfEntity($entity);
-        if (\count($indexes) > 0) {
-            return true;
-        }
-
-        return false;
+        return \count($indexes) > 0;
     }
 
     /**
      * Get all entities with any defined index.
+     * @throws \ReflectionException
      */
     public function getIndexedEntities(): array
     {
@@ -123,7 +120,7 @@ class IndexManager
         foreach ($metaTables as $metaTable) {
             $entity = $metaTable->getName();
             $classMeta = $this->getEntityManager()->getClassMetadata($entity);
-            if ($this->hasEntityIndexes($entity) && $classMeta->isMappedSuperclass === false) {
+            if (property_exists($classMeta, 'isMappedSuperclass') && $classMeta->isMappedSuperclass === false && $this->hasEntityIndexes($entity)) {
                 $tables[] = $entity;
             }
         }
@@ -133,6 +130,7 @@ class IndexManager
 
     /**
      * Get id method.
+     * @throws MethodNotFoundException|MappingException
      */
     public function getIdMethod(string $entityName): string
     {
@@ -179,9 +177,14 @@ class IndexManager
 
     protected function getEntityManager(): EntityManager
     {
-        return $this->doctrine->getManager();
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->doctrine->getManager();
+        return $entityManager;
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     protected function getAnnotationFields(string $entityFqcn): array
     {
         if (! isset($this->annotationFields[$entityFqcn])) {
@@ -204,6 +207,9 @@ class IndexManager
         return $this->annotationFields[$entityFqcn];
     }
 
+    /**
+     * @throws \ReflectionException
+     */
     protected function getAttrubuteFields(string $entity): array
     {
         $fields = [];

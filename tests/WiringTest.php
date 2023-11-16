@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class WiringTest extends KernelTestCase
 {
-    public function testServiceWiring()
+    public function testServiceWiring(): void
     {
         foreach ([
             IndexManager::class,

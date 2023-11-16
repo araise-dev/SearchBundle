@@ -29,22 +29,26 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Extension\Doctrine\Query\Mysql;
 
+use Doctrine\ORM\Query\AST\ArithmeticExpression;
+use Doctrine\ORM\Query\AST\ASTException;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
+use Doctrine\ORM\Query\AST\InputParameter;
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
+use Doctrine\ORM\Query\QueryException;
 use Doctrine\ORM\Query\SqlWalker;
 
 class MatchAgainst extends FunctionNode
 {
+    public array $columns = [];
+
+    public ArithmeticExpression|InputParameter $needle;
+
+    public string $mode = 'IN BOOLEAN MODE';
+
     /**
-     * @var array
+     * @throws QueryException
      */
-    public $columns = [];
-
-    public $needle;
-
-    public $mode = 'IN BOOLEAN MODE';
-
     public function parse(Parser $parser): void
     {
         $parser->match(Lexer::T_IDENTIFIER);
@@ -58,16 +62,16 @@ class MatchAgainst extends FunctionNode
         $this->needle = $parser->InParameter();
 
         while ($parser->getLexer()->isNextToken(Lexer::T_STRING)) {
-            $this->mode = $parser->Literal();
+            $this->mode = (string) $parser->Literal();
         }
 
         $parser->match(Lexer::T_CLOSE_PARENTHESIS);
     }
 
     /**
-     * @return string
+     * @throws ASTException
      */
-    public function getSql(SqlWalker $sqlWalker)
+    public function getSql(SqlWalker $sqlWalker): string
     {
         $haystack = null;
 
