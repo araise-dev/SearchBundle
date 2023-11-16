@@ -38,7 +38,7 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
-class IndexRepository extends ServiceEntityRepository
+class IndexRepository extends ServiceEntityRepository implements IndexRepositoryInterface
 {
     public function __construct(
         private bool $asteriskSearchEnabled,

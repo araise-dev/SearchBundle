@@ -32,6 +32,7 @@ namespace araise\SearchBundle\Manager;
 use araise\SearchBundle\Annotation\Index as AttributeIndex;
 use araise\SearchBundle\Entity\Index as EntityIndex;
 use araise\SearchBundle\Exception\MethodNotFoundException;
+use araise\SearchBundle\Repository\IndexRepositoryInterface;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\DBAL;
 use Doctrine\ORM\EntityManager;
@@ -173,6 +174,13 @@ class IndexManager
         $this->config = $config;
 
         return $this;
+    }
+
+    public function getRepository(): IndexRepositoryInterface
+    {
+        /** @var IndexRepositoryInterface $repository */
+        $repository = $this->doctrine->getRepository(EntityIndex::class);
+        return $repository;
     }
 
     protected function getEntityManager(): EntityManager

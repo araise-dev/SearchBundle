@@ -51,7 +51,7 @@ class OneFieldPopulator extends AbstractPopulator
             $groupedContent = $this->collectEntityIndexData($entityName, $entity);
 
             foreach ($groupedContent as $group => $content) {
-                $entry = $this->entityManager->getRepository(Index::class)->findExisting($class, $group, $entity->{$idMethod}());
+                $entry = $this->indexManager->getRepository()->findExisting($class, $group, $entity->{$idMethod}());
                 if (! $entry) {
                     $insertData = [];
                     $insertSqlParts = [];
