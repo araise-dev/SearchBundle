@@ -3,15 +3,15 @@
 {% block title %}{{ pagination.total }} {{ 'araise_search.search_result_for' | trans }} "{{ searchTerm }}" {{ parent() }}{% endblock %}
 
 {% block main %}
-    <div class="whatwedo_table:wrapper bg-white" data-controller="araise--table-bundle--filter">
-        <header class="whatwedo_table:header border-b border-neutral-200 px-4 py-4 sm:flex sm:items-center sm:justify-between">
-            <div class="whatwedo_table:header__title flex-1 min-w-0 text-lg font-medium leading-6 text-neutral-900 sm:truncate">
+    <div class="whatwedo_table:wrapper" data-controller="araise--table-bundle--filter">
+        <header class="whatwedo_table:header sm:flex sm:justify-between mb-4">
+            <div class="whatwedo_table:header__title flex-1 min-w-0 whatwedo-utility-heading-1 sm:truncate">
                 <h1>
                     {{ pagination.total }} {{ 'araise_search.search_result_for' | trans }} "{{ searchTerm }}"
                 </h1>
             </div>
             {% if duration %}
-            ({{ duration }} ms)
+                ({{ duration }} ms)
             {% endif %}
         </header>
         {{ block('results') }}
@@ -88,10 +88,10 @@
         }]) %}
     {% endif %}
 
-    <footer class="whatwedo_table:footer bg-white px-4 py-3 flex items-center justify-between border-t border-neutral-200 sm:px-6">
+    <footer class="whatwedo_table:footer w-full py-3 px-3 flex items-center justify-between">
         <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
             <div>
-                <p class="text-sm text-neutral-700 inline-block">
+                <p class="whatwedo-utility-paragraph inline-block">
                     {% set offsetResults = 0 %}
                     {% if pagination.total %}{% set offsetResults = pagination.offsetStart %}{% endif %}
 
@@ -117,13 +117,13 @@
 
                     <div
                         {{ stimulus_target('araise/core-bundle/dropdown', 'menu') }}
-                        class="hidden transition duration-300 transform origin-bottom-left absolute left-3 bottom-11 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        class="z-50 hidden transition duration-300 transform origin-bottom-left absolute left-3 bottom-11 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                         data-transition-enter-from="opacity-0 scale-95"
                         data-transition-enter-to="opacity-100 scale-100"
                         data-transition-leave-from="opacity-100 scale-100"
                         data-transition-leave-to="opacity-0 scale-95"
                     >
-                        <div class="py-1 text-neutral-700 text-sm">
+                        <div class="py-1 whatwedo-utility-paragraph">
                             {% for limit in pagination.limit_choices|filter(limit => limit != pagination.limit) %}
                                 <a class="block px-4 py-2 hover:bg-neutral-50" href="{{ app.request.pathInfo }}?query={{ app.request.query.get('query') }}&limit={{ limit }}">
                                     {{- 'araise_table.amount_entries'|trans({'{amount}': limit}) -}}
@@ -134,7 +134,7 @@
                 </div>
             </div>
             <div>
-                <nav class="whatwedo_table:footer__pagination relative z-0 inline-flex rounded-md shadow-sm -space-x-px text-sm font-medium text-neutral-500 bg-white">
+                <nav class="whatwedo_table:footer__pagination relative z-0 inline-flex rounded-md shadow-sm -space-x-px whatwedo-utility-bold bg-white">
                     {% for link in paginationLinks %}
                         <a
                             class="relative inline-flex items-center w-8 justify-center py-2 border border-neutral-300 transition-colors hover:bg-neutral-100 first:rounded-l-md last:rounded-r-md{% if link.is_current %} bg-neutral-200 font-medium{% endif %}"
@@ -151,58 +151,50 @@
 {% endblock %}
 
 {% block results %}
-    <div class="whatwedo_table:table__wrapper align-middle inline-block min-w-full border-b border-neutral-200">
-        <table class="min-w-full" data-araise--table-bundle--table-target="table" style="padding: 0px;">
+    <div class="whatwedo_table-wrapper w-full overflow-x-auto align-middle inline-block min-w-full border-b border-neutral-200">
+        <table class="min-w-full bg-white" data-araise--table-bundle--table-target="table" style="padding: 0px;">
             <thead class="tableFloatingHeaderOriginal">
-            <tr class="border-b border-neutral-200 bg-neutral-50 text-xs font-medium text-neutral-500 text-left uppercase tracking-wider">
-                <th class="px-6 py-3">
+            <tr class="border-b border-neutral-300 bg-neutral-200 text-base font-medium text-neutral-600 text-left tracking-wide">
+                <th class="px-3 py-3 align-top whitespace-nowrap">
                     {{ 'araise_search.type'  | trans }}
                 </th>
-                <th class="px-6 py-3">
+                <th class="px-3 py-3 align-top whitespace-nowrap">
                     {{ 'araise_search.name'  | trans }}
-                </th>
-                <th class="px-6 py-3">
-                    {{ 'araise_search.score'  | trans }}
-                </th>
-            </tr>
-            </thead><thead class="tableFloatingHeader" style="display: none; opacity: 0;">
-            <tr class="border-b border-neutral-200 bg-neutral-50 text-xs font-medium text-neutral-500 text-left uppercase tracking-wider">
-                <th class="px-6 py-3">
-                    {{ 'araise_search.type'  | trans }}
-                </th>
-                <th class="px-6 py-3">
-                    {{ 'araise_search.name'  | trans }}
-                </th>
-                <th class="px-6 py-3">
-                    {{ 'araise_search.score'  | trans }}
                 </th>
             </tr>
             </thead>
-            <tbody class="whatwedo_table:table__body bg-white text-sm text-neutral-500 font-medium divide-y divide-neutral-100">
+            <thead class="tableFloatingHeader" style="display: none; opacity: 0;">
+            <tr class="border-b border-neutral-300 bg-neutral-200 text-base font-medium text-neutral-600 text-left tracking-wide">
+                <th class="px-3 py-3 align-top whitespace-nowrap">
+                    {{ 'araise_search.type'  | trans }}
+                </th>
+                <th class="px-3 py-3 align-top whitespace-nowrap">
+                    {{ 'araise_search.name'  | trans }}
+                </th>
+            </tr>
+            </thead>
+            <tbody class="whatwedo_table-body bg-white whatwedo-utility-paragraph text-neutral-900 divide-y divide-neutral-300">
 
             {% for item in results %}
-                <tr class="whatwedo_table:table__row hover:bg-neutral-50 transition duration-500 color">
-                    <td class="px-6 py-2 text-neutral-900">
+                <tr class="whatwedo_table-row hover:bg-neutral-100 transition duration-500 color align-top">
+                    <td class="px-3 py-2 whitespace-nowrap">
                         {% set item_uri = searchHelper.uri(item) %}
                         {% if item_uri %}
-                            <a href="{{ item_uri }}">
-                        {% endif %}
-                        {{ searchHelper.type(item) | trans }}
-                        {% if item_uri %}
-                            </a>
-                        {% endif %}
-                    </td>
-                    <td class="px-6 py-2 text-neutral-900">
-                        {% if item_uri %}
-                            <a href="{{ item_uri }}">
-                        {% endif %}
-                        {{ searchHelper.name(item) }}
-                        {% if item_uri %}
-                            </a>
+                        <a href="{{ item_uri }}" class="whatwedo-utility-link">
+                            {% endif %}
+                            {{ searchHelper.type(item) | trans }}
+                            {% if item_uri %}
+                        </a>
                         {% endif %}
                     </td>
-                    <td class="px-6 py-2">
-                        {{ item.score }}
+                    <td class="px-3 py-2">
+                        {% if item_uri %}
+                        <a href="{{ item_uri }}">
+                            {% endif %}
+                            {{ searchHelper.name(item) }}
+                            {% if item_uri %}
+                        </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
@@ -210,4 +202,3 @@
         </table>
     </div>
 {% endblock results %}
-
