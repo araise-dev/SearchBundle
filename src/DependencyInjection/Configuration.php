@@ -74,6 +74,13 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->end();
 
+        $rootNode
+            ->children()
+                ->booleanNode('asterisk_search_enabled')
+                ->defaultFalse()
+                ->end()
+        ;
+
         return $treeBuilder;
     }
 }
