@@ -12,8 +12,8 @@ use Doctrine\ORM\EntityManagerInterface;
 class SearchManager
 {
     public function __construct(
-        private IndexRepository $indexRepository,
-        private EntityManagerInterface $entityManager
+        protected IndexRepository $indexRepository,
+        private readonly EntityManagerInterface $entityManager
     ) {
     }
 

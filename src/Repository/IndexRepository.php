@@ -39,8 +39,10 @@ use Doctrine\Persistence\ManagerRegistry;
 
 class IndexRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
+    public function __construct(
+        private bool $asteriskSearchEnabled,
+        ManagerRegistry $registry,
+    ) {
         parent::__construct($registry, Index::class);
     }
 
@@ -175,6 +177,20 @@ class IndexRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function isAsteriskSearchEnabled(): bool
+    {
+        return $this->asteriskSearchEnabled;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setAsteriskSearchEnabled(bool $asteriskSearchEnabled): self
+    {
+        $this->asteriskSearchEnabled = $asteriskSearchEnabled;
+        return $this;
+    }
+
     protected function queryEscape(string $query): string
     {
         // Replace all non word characters with spaces
@@ -182,6 +198,9 @@ class IndexRepository extends ServiceEntityRepository
         // Replace characters-operators with spaces
         $query = preg_replace('/[+\-><\(\)~\"@]+/', ' ', $query);
 
-        return preg_replace('/[*]+/', '%', $query);
+        if ($this->isAsteriskSearchEnabled()) {
+            return preg_replace('/[*]+/', '%', $query);
+        }
+        return preg_replace('/[*]+/', ' ', $query);
     }
 }

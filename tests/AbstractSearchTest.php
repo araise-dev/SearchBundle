@@ -11,6 +11,7 @@ use araise\SearchBundle\Tests\App\Entity\Company;
 use araise\SearchBundle\Tests\App\Factory\CompanyFactory;
 use araise\SearchBundle\Tests\App\Factory\ContactFactory;
 use araise\SearchBundle\Tests\App\Repository\CompanyRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
@@ -134,17 +135,18 @@ abstract class AbstractSearchTest extends KernelTestCase
         }
     }
 
-    protected function setUp(): void
+    protected function setUp($asteriskSearchEnabled = true): void
     {
         parent::setUp();
 
-        /** @var SearchManager $searchManager */
-        $searchManager = self::getContainer()->get(SearchManager::class);
-        $this->searchManager = $searchManager;
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
 
-        /** @var IndexRepository $indexRepository */
         $indexRepository = self::getContainer()->get(IndexRepository::class);
+        $indexRepository->setAsteriskSearchEnabled($asteriskSearchEnabled);
         $this->indexRepository = $indexRepository;
+
+        $searchManager = new SearchManager($indexRepository, $entityManager);
+        $this->searchManager = $searchManager;
 
         /** @var CompanyRepository $companyRepository */
         $companyRepository = self::getContainer()->get(CompanyRepository::class);

@@ -37,9 +37,9 @@ class SearchTest extends AbstractSearchTest
         self::assertCount(1, $result);
     }
 
-    protected function setUp(): void
+    protected function setUp($asteriskSearchEnabled = false): void
     {
-        parent::setUp();
+        parent::setUp($asteriskSearchEnabled);
 
         /** @var OneFieldPopulator $populator */
         $populator = self::getContainer()->get(OneFieldPopulator::class);

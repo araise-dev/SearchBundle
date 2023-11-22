@@ -30,6 +30,8 @@ class araiseSearchExtension extends Extension implements PrependExtensionInterfa
         /** @var Definition $indexManager */
         $indexManager = $container->getDefinition(IndexManager::class);
         $indexManager->addMethodCall('setConfig', [$config]);
+
+        $container->setParameter('araise_search.asterisk_search_enabled', $config['asterisk_search_enabled']);
     }
 
     public function prepend(ContainerBuilder $container): void
