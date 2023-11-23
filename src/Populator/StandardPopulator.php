@@ -55,7 +55,7 @@ class StandardPopulator extends AbstractPopulator
                 }
                 $content = $formatter->getString($entity->{$fieldMethod}());
                 if (! empty($content)) {
-                    $entry = $this->indexManager->getRepository()->findExisting($class, $field, $entity->{$idMethod}());
+                    $entry = $this->indexManager->getIndexRepository()->findExisting($class, $field, $entity->{$idMethod}());
                     if (! $entry) {
                         $insertData = [];
                         $insertSqlParts = [];

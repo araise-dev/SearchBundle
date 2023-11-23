@@ -35,9 +35,8 @@ use araise\SearchBundle\Exception\MethodNotFoundException;
 use araise\SearchBundle\Repository\IndexRepositoryInterface;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\DBAL;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\MappingException;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\Mapping\ClassMetadata;
 
 class IndexManager
@@ -49,8 +48,9 @@ class IndexManager
     private array $annotationFields = [];
 
     public function __construct(
-        protected ManagerRegistry $doctrine,
-        private readonly Reader $annotationReader
+        protected EntityManagerInterface $entityManager,
+        private readonly Reader $annotationReader,
+        protected IndexRepositoryInterface $indexRepository,
     ) {
     }
 
@@ -76,7 +76,7 @@ class IndexManager
     {
         if (! isset($this->entityFields[$entityFqcn])) {
             $fields = $this->getAnnotationFields($entityFqcn);
-            $fields = array_merge($fields, $this->getAttrubuteFields($entityFqcn));
+            $fields = array_merge($fields, $this->getAttributeFields($entityFqcn));
 
             // Check if entities exists
             if (isset($this->config['entities'])) {
@@ -176,18 +176,14 @@ class IndexManager
         return $this;
     }
 
-    public function getRepository(): IndexRepositoryInterface
+    public function getIndexRepository(): IndexRepositoryInterface
     {
-        /** @var IndexRepositoryInterface $repository */
-        $repository = $this->doctrine->getRepository(EntityIndex::class);
-        return $repository;
+        return $this->indexRepository;
     }
 
-    protected function getEntityManager(): EntityManager
+    protected function getEntityManager(): EntityManagerInterface
     {
-        /** @var EntityManager $entityManager */
-        $entityManager = $this->doctrine->getManager();
-        return $entityManager;
+        return $this->entityManager;
     }
 
     /**
@@ -218,7 +214,7 @@ class IndexManager
     /**
      * @throws \ReflectionException
      */
-    protected function getAttrubuteFields(string $entity): array
+    protected function getAttributeFields(string $entity): array
     {
         $fields = [];
         $reflection = new \ReflectionClass($entity);
