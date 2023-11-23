@@ -27,7 +27,7 @@ abstract class AbstractSearchTest extends KernelTestCase
 
     private CompanyRepository $companyRepository;
 
-    protected function createEntities()
+    protected function createEntities(): void
     {
         CompanyFactory::createOne([
             'name' => 'whatwedo GmbH',

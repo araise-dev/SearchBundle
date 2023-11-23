@@ -16,7 +16,7 @@ class FilterManagerTest extends KernelTestCase
     use Factories;
     use ResetDatabase;
 
-    public function testFilter()
+    public function testFilter(): void
     {
         /** @var FilterManager $filterManager */
         $filterManager = self::getContainer()->get(FilterManager::class);
@@ -32,7 +32,7 @@ class FilterManagerTest extends KernelTestCase
         );
     }
 
-    public function testStandardTokenizer()
+    public function testStandardTokenizer(): void
     {
         /** @var FilterManager $filterManager */
         $filterManager = self::getContainer()->get(FilterManager::class);
@@ -47,7 +47,7 @@ class FilterManagerTest extends KernelTestCase
         );
     }
 
-    public function testNoChainDefined()
+    public function testNoChainDefined(): void
     {
         /** @var FilterManager $filterManager */
         $filterManager = self::getContainer()->get(FilterManager::class);

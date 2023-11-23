@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-/**
- * Copyright (c) 2016, whatwedo GmbH
- * All rights reserved.
+/*
+ * Copyright (c) 2023, whatwedo GmbH
+ * All rights reserved
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -27,46 +27,15 @@ declare(strict_types=1);
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace araise\SearchBundle\Annotation;
+namespace araise\SearchBundle\Repository;
 
-use araise\CoreBundle\Formatter\DefaultFormatter;
+use araise\SearchBundle\Entity\Index;
 
-#[\Attribute]
-class Index
+interface IndexRepositoryInterface
 {
-    public function __construct(
-        public string $formatter = DefaultFormatter::class,
-        public array $groups = ['default'],
-        public array $formatterOptions = []
-    ) {
-    }
+    public function search($query, $entity = null, $group = null): array;
 
-    public function getFormatter(): string
-    {
-        return $this->formatter;
-    }
+    public function searchEntities($query, array $entities = [], array $groups = []): array;
 
-    public function setFormatter(string $formatter): self
-    {
-        $this->formatter = $formatter;
-
-        return $this;
-    }
-
-    public function getFormatterOptions(): array
-    {
-        return $this->formatterOptions;
-    }
-
-    public function setFormatterOptions(array $formatterOptions): self
-    {
-        $this->formatterOptions = $formatterOptions;
-
-        return $this;
-    }
-
-    public function getGroups(): array
-    {
-        return $this->groups;
-    }
+    public function findExisting(string $entityFqcn, string $group, int $foreignId): ?Index;
 }

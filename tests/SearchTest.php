@@ -10,7 +10,7 @@ use araise\SearchBundle\Tests\App\Entity\Company;
 
 class SearchTest extends AbstractSearchTest
 {
-    public function testSearchAll()
+    public function testSearchAll(): void
     {
         $this->createEntities();
 
@@ -19,7 +19,7 @@ class SearchTest extends AbstractSearchTest
         self::assertCount(6, $result);
     }
 
-    public function testSearchEntity()
+    public function testSearchEntity(): void
     {
         $this->createEntities();
 
@@ -28,7 +28,7 @@ class SearchTest extends AbstractSearchTest
         self::assertCount(1, $result);
     }
 
-    public function testSearchGroup()
+    public function testSearchGroup(): void
     {
         $this->createEntities();
 

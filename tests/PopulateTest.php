@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class PopulateTest extends AbstractIndexTest
 {
-    public function testPopulate()
+    public function testPopulate(): void
     {
         $populator = self::getContainer()->get(PopulatorInterface::class);
         $populator->resetVisited();
@@ -28,7 +28,7 @@ class PopulateTest extends AbstractIndexTest
             ->getRepository(Index::class)->count([]));
     }
 
-    public function testPopulateCompanies()
+    public function testPopulateCompanies(): void
     {
         $this->createEntities();
 
@@ -41,7 +41,7 @@ class PopulateTest extends AbstractIndexTest
             ->getRepository(Index::class)->count([]));
     }
 
-    public function testPopulateNotEntity()
+    public function testPopulateNotEntity(): void
     {
         /** @var PopulatorInterface $populator */
         $populator = self::getContainer()->get(PopulatorInterface::class);
@@ -51,7 +51,7 @@ class PopulateTest extends AbstractIndexTest
         $populator->populate(null, NotADoctrinieModel::class);
     }
 
-    public function testPopulateNotIndexEntity()
+    public function testPopulateNotIndexEntity(): void
     {
         /** @var PopulatorInterface $populator */
         $populator = self::getContainer()->get(PopulatorInterface::class);
@@ -61,7 +61,7 @@ class PopulateTest extends AbstractIndexTest
         $populator->populate(null, Person::class);
     }
 
-    public function testDisablePopulate()
+    public function testDisablePopulate(): void
     {
         /** @var PopulatorInterface $populator */
         $populator = self::getContainer()->get(PopulatorInterface::class);

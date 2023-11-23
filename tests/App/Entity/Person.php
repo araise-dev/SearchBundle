@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace araise\SearchBundle\Tests\App\Entity;
 
+use araise\SearchBundle\Tests\App\Repository\PersonRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: 'person')]
-#[ORM\Entity(repositoryClass: 'araise\SearchBundle\Tests\App\Repository\PersonRepository')]
+#[ORM\Entity(repositoryClass: PersonRepository::class)]
 class Person
 {
     #[ORM\Column(type: 'integer')]
