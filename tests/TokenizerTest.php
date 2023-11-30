@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class TokenizerTest extends TestCase
 {
-    public function testLowerCaseFilter()
+    public function testLowerCaseFilter(): void
     {
         $tokeizer = new StandardTokenizer();
 

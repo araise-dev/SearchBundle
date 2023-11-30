@@ -6,20 +6,23 @@ namespace araise\SearchBundle\Manager;
 
 use araise\SearchBundle\Model\ResultItem;
 use araise\SearchBundle\Repository\IndexRepository;
+use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\ORM\EntityManagerInterface;
 
 class SearchManager
 {
     public function __construct(
-        private IndexRepository $indexRepository,
-        private EntityManagerInterface $entityManager
+        private readonly IndexRepository $indexRepository,
+        private readonly EntityManagerInterface $entityManager
     ) {
     }
 
     /**
-     * @return array|ResultItem[]
+     * @return ResultItem[]
+     * @throws AnnotationException
+     * @throws \ReflectionException
      */
-    public function searchByEntites(string $searchTerm, array $entityFqcns = [], array $groups = [])
+    public function searchByEntities(string $searchTerm, array $entityFqcns = [], array $groups = []): array
     {
         $indexResults = $this->indexRepository->searchEntities($searchTerm, $entityFqcns, $groups);
         $loadedEntities = $this->loadEntities($indexResults);
@@ -52,7 +55,7 @@ class SearchManager
         return $groupByClass;
     }
 
-    private function loadEntities(array $indexResults)
+    private function loadEntities(array $indexResults): array
     {
         $groupedEntities = [];
 

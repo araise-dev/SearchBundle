@@ -7,9 +7,9 @@ namespace araise\SearchBundle\Model;
 class ResultItem
 {
     public function __construct(
-        private int $id,
-        private string $class,
-        private float $score,
+        private readonly int $id,
+        private readonly string $class,
+        private readonly float $score,
         private $entity
     ) {
     }

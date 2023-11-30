@@ -13,13 +13,12 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class IndexListenerTest extends AbstractIndexTest
 {
-    public function testEntityCreation()
+    public function testEntityCreation(): void
     {
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get(EntityManagerInterface::class);
         self::assertSame(0, $em->getRepository(Index::class)->count([]));
 
-        /** @var Contact $contact */
         ContactFactory::createOne([
             'name' => 'Maurizio Monticelli',
             'company' => CompanyFactory::createOne([
@@ -31,7 +30,7 @@ class IndexListenerTest extends AbstractIndexTest
         ])->object();
 
         $indexResults = $em->getRepository(Index::class)->findAll();
-        self::assertSame(6, count($indexResults));
+        self::assertCount(6, $indexResults);
 
         /** @var Index $indexResult */
         foreach ($indexResults as $indexResult) {
@@ -52,7 +51,7 @@ class IndexListenerTest extends AbstractIndexTest
         }
     }
 
-    public function testEntityUpdate()
+    public function testEntityUpdate(): void
     {
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get(EntityManagerInterface::class);
@@ -103,26 +102,23 @@ class IndexListenerTest extends AbstractIndexTest
         }
     }
 
-    public function testEntityDelete()
+    public function testEntityDelete(): void
     {
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get(EntityManagerInterface::class);
 
         /** @var Contact $contact */
-        $contact = ContactFactory::createOne()->object();
+        $contact = ContactFactory::createOne([
+            'company' => CompanyFactory::createOne([
+                'name' => 'company',
+                'city' => 'city',
+                'country' => 'country',
+                'taxIdentificationNumber' => '123456',
+            ]),
+        ])->object();
 
         $contactId = $contact->getId();
 
-        $em->clear();
-
-        $contact = $em->getRepository(Contact::class)->find($contactId);
-
-        $contact->getCompany()->setName('company');
-        $contact->getCompany()->setCity('city');
-        $contact->getCompany()->setCountry('county');
-        $contact->getCompany()->setTaxIdentificationNumber('123456');
-
-        $em->flush();
         $em->clear();
 
         $indexResults = $em->getRepository(Index::class)->findAll();

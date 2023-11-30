@@ -6,6 +6,7 @@ namespace araise\SearchBundle\Traits;
 
 use araise\SearchBundle\Manager\SearchManager;
 use araise\SearchBundle\Model\ResultItem;
+use Doctrine\Common\Annotations\AnnotationException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -49,6 +50,10 @@ trait SearchTrait
         return '@araiseSearch/index.html.twig';
     }
 
+    /**
+     * @throws \ReflectionException
+     * @throws AnnotationException
+     */
     protected function getGlobalResults(Request $request, SearchManager $searchManager, $options = []): array
     {
         $resolver = new OptionsResolver();
@@ -83,7 +88,7 @@ trait SearchTrait
                     $definition = $definitionManager->getDefinitionByEntity($item->getEntity());
 
                     return $definition->getEntityTitle();
-                } catch (\InvalidArgumentException|RouteNotFoundException $e) {
+                } catch (\InvalidArgumentException|RouteNotFoundException) {
                     // not found
                 }
             }
@@ -93,6 +98,7 @@ trait SearchTrait
 
         $this->searchOptions = $resolver->resolve($options);
 
+        $stopWatch = null;
         if ($this->searchOptions[Search::OPT_STOP_WATCH]) {
             $stopWatch = new Stopwatch();
             $stopWatch->start('araiseSearch');
@@ -101,7 +107,7 @@ trait SearchTrait
 
         $results = [];
         if (! empty($searchTerm)) {
-            $results = $searchManager->searchByEntites(
+            $results = $searchManager->searchByEntities(
                 $searchTerm,
                 $this->searchOptions[Search::OPT_ENTITIES],
                 $this->searchOptions[Search::OPT_GROUPS]
@@ -154,15 +160,13 @@ trait SearchTrait
             }
         };
 
-        $templateParams = [
+        return [
             'results' => $results,
             'pagination' => $pagination,
             'searchTerm' => $searchTerm,
             'duration' => $this->searchOptions[Search::OPT_STOP_WATCH] ? $stopWatch->start('araiseSearch')->getDuration() : 0,
             'searchHelper' => $searchHelper,
         ];
-
-        return $templateParams;
     }
 
     private function orderResults(array $results): array

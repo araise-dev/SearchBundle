@@ -34,7 +34,6 @@ use araise\CoreBundle\Manager\FormatterManager;
 use araise\SearchBundle\Entity\Index;
 use araise\SearchBundle\Manager\IndexManager;
 use araise\SearchBundle\Repository\IndexRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -43,33 +42,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SearchCommand extends BaseCommand
 {
-    /**
-     * @var EntityManager
-     */
-    protected $em;
-
-    /**
-     * @var ManagerRegistry
-     */
-    protected $doctrine;
-
-    /**
-     * @var IndexManager
-     */
-    protected $indexManager;
-
-    /**
-     * @var FormatterManager
-     */
-    protected $formatterManager;
-
-    public function __construct(ManagerRegistry $doctrine, IndexManager $indexManager, FormatterManager $formatterManager)
-    {
-        parent::__construct(null);
-
-        $this->doctrine = $doctrine;
-        $this->indexManager = $indexManager;
-        $this->formatterManager = $formatterManager;
+    public function __construct(
+        protected ManagerRegistry $doctrine,
+        protected IndexManager $indexManager,
+        protected FormatterManager $formatterManager
+    ) {
+        parent::__construct();
     }
 
     /**

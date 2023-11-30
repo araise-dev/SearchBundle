@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class OneFieldPopulateTest extends AbstractIndexTest
 {
-    public function testPopulate()
+    public function testPopulate(): void
     {
         /** @var OneFieldPopulator $populator */
         $populator = self::getContainer()->get(PopulatorInterface::class);
@@ -24,7 +24,7 @@ class OneFieldPopulateTest extends AbstractIndexTest
             ->getRepository(Index::class)->count([]));
     }
 
-    public function testListnerPopulate()
+    public function testListnerPopulate(): void
     {
         $this->createEntities();
 
@@ -32,7 +32,7 @@ class OneFieldPopulateTest extends AbstractIndexTest
             ->getRepository(Index::class)->count([]));
     }
 
-    public function testDisableListnerPopulate()
+    public function testDisableListnerPopulate(): void
     {
         /** @var OneFieldPopulator $populator */
         $populator = self::getContainer()->get(PopulatorInterface::class);

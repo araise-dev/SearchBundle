@@ -10,10 +10,6 @@ abstract class AbstractFilter implements FilterInterface
 {
     protected array $options = [];
 
-    public function __construct()
-    {
-    }
-
     public function setOptions(array $options): void
     {
         $resolver = new OptionsResolver();

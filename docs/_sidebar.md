@@ -1,3 +1,4 @@
 * [Getting Started](/)
-* [Configuration](configuration.md)
+* [Search Configuration](configuration.md)
+* [Bundle Configuration](bundle-configuration.md)
 * [Indexing](indexing.md)
