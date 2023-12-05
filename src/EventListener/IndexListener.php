@@ -99,7 +99,7 @@ class IndexListener implements EventSubscriber
         return [
             'postPersist',
             'postUpdate',
-            'preRemove',
+            'postRemove',
         ];
     }
 
@@ -113,7 +113,7 @@ class IndexListener implements EventSubscriber
         $this->populator->index($args->getObject());
     }
 
-    public function preRemove(LifecycleEventArgs $args)
+    public function postRemove(LifecycleEventArgs $args)
     {
         $this->populator->remove($args->getObject());
     }
