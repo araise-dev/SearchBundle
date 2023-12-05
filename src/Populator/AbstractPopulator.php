@@ -7,11 +7,14 @@ namespace araise\SearchBundle\Populator;
 use araise\CoreBundle\Manager\FormatterManager;
 use araise\SearchBundle\Exception\ClassNotDoctrineMappedException;
 use araise\SearchBundle\Exception\ClassNotIndexedEntityException;
+use araise\SearchBundle\Exception\MethodNotFoundException;
 use araise\SearchBundle\Manager\IndexManager;
 use araise\SearchBundle\Repository\CustomSearchPopulateQueryBuilderInterface;
 use Doctrine\Common\Util\ClassUtils;
+use Doctrine\DBAL;
 use Doctrine\DBAL\Logging\Middleware;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\Mapping\MappingException;
 use Psr\Log\NullLogger;
 
 abstract class AbstractPopulator implements PopulatorInterface
@@ -32,6 +35,12 @@ abstract class AbstractPopulator implements PopulatorInterface
         $this->output = new NullPopulateOutput();
     }
 
+    /**
+     * @throws MappingException
+     * @throws ClassNotDoctrineMappedException
+     * @throws ClassNotIndexedEntityException
+     * @throws DBAL\Exception
+     */
     public function populate(?PopulateOutputInterface $output = null, ?string $entityClass = null): void
     {
         $this->entityManager->getConnection()->getConfiguration()->setMiddlewares([new Middleware(new NullLogger())]);
@@ -58,7 +67,7 @@ abstract class AbstractPopulator implements PopulatorInterface
                 throw new ClassNotDoctrineMappedException($entityClass);
             }
 
-            if ($entityClass && ! \in_array($entityClass, $entities, true)) {
+            if (!\in_array($entityClass, $entities, true)) {
                 throw new ClassNotIndexedEntityException($entityClass);
             }
         }
@@ -72,6 +81,10 @@ abstract class AbstractPopulator implements PopulatorInterface
         }
     }
 
+    /**
+     * @throws \Doctrine\ORM\Mapping\MappingException
+     * @throws MethodNotFoundException|DBAL\Exception
+     */
     public function remove(object $entity): void
     {
         if ($this->entityWasRemoved($entity)) {
@@ -92,11 +105,11 @@ abstract class AbstractPopulator implements PopulatorInterface
                 continue;
             }
             $idMethod = $this->indexManager->getIdMethod($entityName);
-            $this->delete((string) $entity->{$idMethod}(), $class);
+            $this->delete($entity->{$idMethod}(), $class);
         }
     }
 
-    public function disableEntityListener(bool $disable)
+    public function disableEntityListener(bool $disable): void
     {
         $this->disableEntityListener = $disable;
     }
@@ -113,12 +126,14 @@ abstract class AbstractPopulator implements PopulatorInterface
             return false;
         }
         $metadata = $this->entityManager->getClassMetadata($class);
-        if (! $this->indexManager->hasEntityIndexes($class) || $metadata->isMappedSuperclass) {
-            return false;
-        }
-        return true;
+        return !$metadata->isMappedSuperclass && $this->indexManager->hasEntityIndexes($class);
     }
 
+    /**
+     * @throws \ReflectionException
+     * @throws \Doctrine\ORM\Mapping\MappingException
+     * @throws MethodNotFoundException
+     */
     protected function getIndexEntityWorkingValues(string $entityName): array|false
     {
         $entityClass = new \ReflectionClass($entityName);
@@ -135,7 +150,7 @@ abstract class AbstractPopulator implements PopulatorInterface
         $repository = $this->entityManager->getRepository($entityName);
 
         if ($repository instanceof CustomSearchPopulateQueryBuilderInterface) {
-            $queryBuilder = $repository->getCustomSearchPopulateQueryBuilder();
+            $queryBuilder = $repository->getCustomSearchPopulateQueryBuilder('e');
         } else {
             // get clean QueryBuilder
             $queryBuilder = $this->entityManager->createQueryBuilder();
@@ -154,13 +169,16 @@ abstract class AbstractPopulator implements PopulatorInterface
         return [$entities, $idMethod, $indexes];
     }
 
-    abstract protected function indexEntity($entityName);
+    abstract protected function indexEntity(string $entityName);
 
-    protected function prePopulate()
+    protected function prePopulate(): void
     {
     }
 
-    protected function bulkInsert(array $insertSqlParts, array $insertData)
+    /**
+     * @throws DBAL\Exception
+     */
+    protected function bulkInsert(array $insertSqlParts, array $insertData): void
     {
         $connection = $this->entityManager->getConnection();
         $bulkInsertStatetment = $connection->prepare('INSERT INTO araise_search_index (foreign_id, model, grp, content) VALUES '.implode(',', $insertSqlParts));
@@ -172,7 +190,10 @@ abstract class AbstractPopulator implements PopulatorInterface
         $bulkInsertStatetment->executeStatement();
     }
 
-    protected function update(string $id, string $content)
+    /**
+     * @throws DBAL\Exception
+     */
+    protected function update(int $id, string $content): void
     {
         $connection = $this->entityManager->getConnection();
         $updateStatement = $connection->prepare('UPDATE araise_search_index SET content=? WHERE id=?');
@@ -181,7 +202,10 @@ abstract class AbstractPopulator implements PopulatorInterface
         $updateStatement->executeStatement();
     }
 
-    protected function delete(string $foreignId, string $model)
+    /**
+     * @throws DBAL\Exception
+     */
+    protected function delete(int $foreignId, string $model): void
     {
         $connection = $this->entityManager->getConnection();
         $updateStatement = $connection->prepare('DELETE FROM araise_search_index WHERE foreign_id=? and model=?');

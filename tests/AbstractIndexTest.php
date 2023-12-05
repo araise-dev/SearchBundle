@@ -18,7 +18,7 @@ abstract class AbstractIndexTest extends KernelTestCase
     use Factories;
     use ResetDatabase;
 
-    protected function createEntities()
+    protected function createEntities(): void
     {
         /** @var EntityManagerInterface $em */
         $em = self::getContainer()->get(EntityManagerInterface::class);

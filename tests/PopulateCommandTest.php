@@ -12,7 +12,7 @@ class PopulateCommandTest extends AbstractIndexTest
 {
     use InteractsWithConsole;
 
-    public function testPopulateCommand()
+    public function testPopulateCommand(): void
     {
         $this->createEntities();
 

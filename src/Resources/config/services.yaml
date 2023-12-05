@@ -13,3 +13,7 @@ services:
     araise\SearchBundle\EventListener\IndexListener:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+
+    araise\SearchBundle\Repository\IndexRepository:
+        arguments: [ "%araise_search.asterisk_search_enabled%" ]
+

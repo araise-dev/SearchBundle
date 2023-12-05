@@ -7,12 +7,18 @@ namespace araise\SearchBundle\Populator;
 use araise\SearchBundle\Entity\Index;
 use araise\SearchBundle\Exception\MethodNotFoundException;
 use Doctrine\Common\Util\ClassUtils;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
+use Doctrine\DBAL;
+use Doctrine\ORM\Mapping\MappingException;
 
 class StandardPopulator extends AbstractPopulator
 {
-    public function index(object $entity)
+    /**
+     * @throws MethodNotFoundException
+     * @throws MappingException
+     * @throws \ReflectionException
+     * @throws DBAL\Exception
+     */
+    public function index(object $entity): void
     {
         if ($this->disableEntityListener) {
             return;
@@ -49,7 +55,7 @@ class StandardPopulator extends AbstractPopulator
                 }
                 $content = $formatter->getString($entity->{$fieldMethod}());
                 if (! empty($content)) {
-                    $entry = $this->entityManager->getRepository(Index::class)->findExisting($class, $field, $entity->{$idMethod}());
+                    $entry = $this->indexManager->getIndexRepository()->findExisting($class, $field, $entity->{$idMethod}());
                     if (! $entry) {
                         $insertData = [];
                         $insertSqlParts = [];
@@ -71,11 +77,12 @@ class StandardPopulator extends AbstractPopulator
     /**
      * Populate index of given entity.
      *
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @throws DBAL\Exception
+     * @throws MappingException
      * @throws MethodNotFoundException
+     * @throws \ReflectionException
      */
-    protected function indexEntity($entityName)
+    protected function indexEntity(string $entityName): void
     {
         [$entities, $idMethod, $indexes] = $this->getIndexEntityWorkingValues($entityName);
 
@@ -129,7 +136,7 @@ class StandardPopulator extends AbstractPopulator
     /**
      * Clean up garbage.
      */
-    protected function gc()
+    protected function gc(): void
     {
         $this->entityManager->clear();
         gc_collect_cycles();

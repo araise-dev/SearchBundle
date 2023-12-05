@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
-/**
- * Copyright (c) 2016, whatwedo GmbH
- * All rights reserved.
+/*
+ * Copyright (c) 2023, whatwedo GmbH
+ * All rights reserved
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -27,47 +27,15 @@ declare(strict_types=1);
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-namespace araise\SearchBundle\EventListener;
+namespace araise\SearchBundle\Repository;
 
-use araise\CoreBundle\Manager\FormatterManager;
-use araise\SearchBundle\Manager\IndexManager;
-use araise\SearchBundle\Populator\PopulatorInterface;
-use Doctrine\Common\EventSubscriber;
-use Doctrine\Persistence\Event\LifecycleEventArgs;
+use araise\SearchBundle\Entity\Index;
 
-class IndexListener implements EventSubscriber
+interface IndexRepositoryInterface
 {
-    public function __construct(
-        protected IndexManager $indexManager,
-        protected FormatterManager $formatterManager,
-        private PopulatorInterface $populator
-    ) {
-    }
+    public function search($query, $entity = null, $group = null): array;
 
-    /**
-     * Returns an array of events this subscriber wants to listen to.
-     */
-    public function getSubscribedEvents(): array
-    {
-        return [
-            'postPersist',
-            'postUpdate',
-            'postRemove',
-        ];
-    }
+    public function searchEntities($query, array $entities = [], array $groups = []): array;
 
-    public function postPersist(LifecycleEventArgs $args): void
-    {
-        $this->populator->index($args->getObject());
-    }
-
-    public function postUpdate(LifecycleEventArgs $args): void
-    {
-        $this->populator->index($args->getObject());
-    }
-
-    public function postRemove(LifecycleEventArgs $args): void
-    {
-        $this->populator->remove($args->getObject());
-    }
+    public function findExisting(string $entityFqcn, string $group, int $foreignId): ?Index;
 }

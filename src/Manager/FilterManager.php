@@ -20,7 +20,7 @@ class FilterManager
         $this->filterList[$chain][$filter->getPriority()][] = $filter;
     }
 
-    public function process(string $data, string $chain)
+    public function process(string $data, string $chain): string
     {
         $tokens = $this->getTokens($data, $chain);
 
@@ -39,12 +39,12 @@ class FilterManager
         return implode(' ', $tokens);
     }
 
-    public function addTokenizer(TokenizerInterface $tokenizer, string $chain)
+    public function addTokenizer(TokenizerInterface $tokenizer, string $chain): void
     {
         $this->tockenizers[$chain][$tokenizer->getPriority()][] = $tokenizer;
     }
 
-    private function getTokens(string $value, string $chain)
+    private function getTokens(string $value, string $chain): array
     {
         $tokens = [];
         if (! isset($this->tockenizers[$chain])) {

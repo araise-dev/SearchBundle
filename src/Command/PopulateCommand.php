@@ -44,7 +44,7 @@ class PopulateCommand extends BaseCommand implements PopulateOutputInterface
     public function __construct(
         protected PopulatorInterface $populator
     ) {
-        parent::__construct(null);
+        parent::__construct();
     }
 
     public function progressStart(int $max): void

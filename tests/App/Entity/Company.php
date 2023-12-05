@@ -5,13 +5,15 @@ declare(strict_types=1);
 namespace araise\SearchBundle\Tests\App\Entity;
 
 use araise\SearchBundle\Annotation\Index;
+use araise\SearchBundle\Tests\App\Formatter\DummyFormatter;
+use araise\SearchBundle\Tests\App\Repository\CompanyRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Table(name: 'company')]
-#[ORM\Entity(repositoryClass: 'araise\SearchBundle\Tests\App\Repository\CompanyRepository')]
+#[ORM\Entity(repositoryClass: CompanyRepository::class)]
 class Company
 {
     #[ORM\Column(type: 'integer')]
@@ -25,7 +27,7 @@ class Company
     #[Assert\NotNull]
     private ?string $name = null;
 
-    #[Index(formatter: 'araise\SearchBundle\Tests\App\Formatter\DummyFormatter')]
+    #[Index(formatter: DummyFormatter::class)]
     #[ORM\Column(type: 'string')]
     #[Assert\NotBlank]
     #[Assert\NotNull]
@@ -44,10 +46,10 @@ class Company
     private ?string $taxIdentificationNumber = null;
 
     /**
-     * @var Collection|array<Contact> One Member has Many Departments
+     * @var Collection<Contact> One Member has Many Departments
      */
-    #[ORM\OneToMany(targetEntity: 'Contact', mappedBy: 'company')]
-    private $contacts;
+    #[ORM\OneToMany(mappedBy: 'company', targetEntity: Contact::class)]
+    private Collection $contacts;
 
     public function __construct()
     {

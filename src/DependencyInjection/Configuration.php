@@ -18,6 +18,11 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('araise_search');
         $rootNode = $treeBuilder->getRootNode();
+
+        if (!method_exists($rootNode, 'children')) {
+            throw new \RuntimeException();
+        }
+
         $rootNode
             ->children()
             ->arrayNode('chains')
@@ -73,6 +78,13 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->end()
             ->end();
+
+        $rootNode
+            ->children()
+                ->booleanNode('asterisk_search_enabled')
+                ->defaultFalse()
+                ->end()
+        ;
 
         return $treeBuilder;
     }

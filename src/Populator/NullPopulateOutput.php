@@ -6,7 +6,7 @@ namespace araise\SearchBundle\Populator;
 
 class NullPopulateOutput implements PopulateOutputInterface
 {
-    public function log(string $string)
+    public function log(string $string): void
     {
     }
 
