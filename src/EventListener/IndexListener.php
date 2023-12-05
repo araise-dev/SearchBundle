@@ -32,9 +32,14 @@ namespace araise\SearchBundle\EventListener;
 use araise\CoreBundle\Manager\FormatterManager;
 use araise\SearchBundle\Manager\IndexManager;
 use araise\SearchBundle\Populator\PopulatorInterface;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 
+#[AsDoctrineListener(event: Events::postUpdate)]
+#[AsDoctrineListener(event: Events::postPersist)]
+#[AsDoctrineListener(event: Events::preRemove)]
 class IndexListener implements EventSubscriber
 {
     public function __construct(
