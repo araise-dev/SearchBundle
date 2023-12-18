@@ -32,15 +32,22 @@ namespace araise\SearchBundle\EventListener;
 use araise\CoreBundle\Manager\FormatterManager;
 use araise\SearchBundle\Manager\IndexManager;
 use araise\SearchBundle\Populator\PopulatorInterface;
+use Doctrine\Bundle\DoctrineBundle\Attribute\AsDoctrineListener;
 use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Events;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 
+#[AsDoctrineListener(event: Events::postUpdate)]
+#[AsDoctrineListener(event: Events::postPersist)]
+#[AsDoctrineListener(event: Events::preRemove)]
+#[AsDoctrineListener(event: Events::postRemove)]
 class IndexListener implements EventSubscriber
 {
     public function __construct(
         protected IndexManager $indexManager,
         protected FormatterManager $formatterManager,
-        private PopulatorInterface $populator
+        private PopulatorInterface $populator,
+        private array $removedIdMap = []
     ) {
     }
 
@@ -53,6 +60,7 @@ class IndexListener implements EventSubscriber
             'postPersist',
             'postUpdate',
             'preRemove',
+            'postRemove',
         ];
     }
 
@@ -68,6 +76,18 @@ class IndexListener implements EventSubscriber
 
     public function preRemove(LifecycleEventArgs $args): void
     {
-        $this->populator->remove($args->getObject());
+        $object = $args->getObject();
+        $idMethod = $this->indexManager->getIdMethod($object::class);
+        $this->removedIdMap[spl_object_hash($object)] = $object->{$idMethod}();
+    }
+
+    public function postRemove(LifecycleEventArgs $args): void
+    {
+        $object = $args->getObject();
+        $hash = spl_object_hash($object);
+        if (! isset($this->removedIdMap[$hash])) {
+            return;
+        }
+        $this->populator->remove($object, $this->removedIdMap[$hash]);
     }
 }

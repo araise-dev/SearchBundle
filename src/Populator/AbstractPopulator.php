@@ -85,7 +85,7 @@ abstract class AbstractPopulator implements PopulatorInterface
      * @throws \Doctrine\ORM\Mapping\MappingException
      * @throws MethodNotFoundException|DBAL\Exception
      */
-    public function remove(object $entity): void
+    public function remove(object $entity, mixed $id = null): void
     {
         if ($this->entityWasRemoved($entity)) {
             return;
@@ -105,7 +105,10 @@ abstract class AbstractPopulator implements PopulatorInterface
                 continue;
             }
             $idMethod = $this->indexManager->getIdMethod($entityName);
-            $this->delete($entity->{$idMethod}(), $class);
+            $this->delete($id ?? $entity->{$idMethod}(), $class);
+            if ($id === null) {
+                trigger_deprecation('araise/search-bundle', 'v3.0.4', 'Passing null as second argument to remove() is deprecated. Pass the deleted entity id instead.');
+            }
         }
     }
 
