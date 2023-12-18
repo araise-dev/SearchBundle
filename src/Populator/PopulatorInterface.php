@@ -6,9 +6,9 @@ namespace araise\SearchBundle\Populator;
 
 interface PopulatorInterface
 {
-    public function index(object $entity);
+    public function index(object $entity): void;
 
-    public function remove(object $entity);
+    public function remove(object $entity, mixed $id = null): void;
 
     public function populate(?PopulateOutputInterface $output, ?string $entityClass): void;
 
