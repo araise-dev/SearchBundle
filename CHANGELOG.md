@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v3.0.5
+ - More documentation and better styling of the documentation
+
 ## v3.0.3
  - Added new bundle configuration `asterisk_search_enabled` (default `false`)
      - Enable this to allow searching with `*` as wildcard
