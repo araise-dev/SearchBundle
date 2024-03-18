@@ -10,7 +10,6 @@ use araise\SearchBundle\Exception\ClassNotIndexedEntityException;
 use araise\SearchBundle\Exception\MethodNotFoundException;
 use araise\SearchBundle\Manager\IndexManager;
 use araise\SearchBundle\Repository\CustomSearchPopulateQueryBuilderInterface;
-use Doctrine\Common\Util\ClassUtils;
 use Doctrine\DBAL;
 use Doctrine\DBAL\Logging\Middleware;
 use Doctrine\ORM\EntityManagerInterface;
@@ -95,7 +94,7 @@ abstract class AbstractPopulator implements PopulatorInterface
             return;
         }
 
-        $entityName = ClassUtils::getClass($entity);
+        $entityName = $this->entityManager->getClassMetadata($entity::class)->name;
         if (! $this->indexManager->hasEntityIndexes($entityName)) {
             return;
         }
