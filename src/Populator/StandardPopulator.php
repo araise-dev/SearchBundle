@@ -6,7 +6,6 @@ namespace araise\SearchBundle\Populator;
 
 use araise\SearchBundle\Entity\Index;
 use araise\SearchBundle\Exception\MethodNotFoundException;
-use Doctrine\Common\Util\ClassUtils;
 use Doctrine\DBAL;
 use Doctrine\ORM\Mapping\MappingException;
 
@@ -32,7 +31,7 @@ class StandardPopulator extends AbstractPopulator
             return;
         }
 
-        $entityName = ClassUtils::getClass($entity);
+        $entityName = $this->entityManager->getClassMetadata($entity::class)->name;
         if (! $this->indexManager->hasEntityIndexes($entityName)) {
             return;
         }

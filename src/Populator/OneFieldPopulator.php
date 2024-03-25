@@ -6,12 +6,10 @@ namespace araise\SearchBundle\Populator;
 
 use araise\SearchBundle\Entity\Index;
 use araise\SearchBundle\Exception\MethodNotFoundException;
-use Doctrine\Common\Util\ClassUtils;
 use Doctrine\DBAL;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\Mapping\MappingException;
 use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 
 class OneFieldPopulator extends AbstractPopulator
 {
@@ -35,7 +33,7 @@ class OneFieldPopulator extends AbstractPopulator
             return;
         }
 
-        $entityName = ClassUtils::getClass($entity);
+        $entityName = $this->entityManager->getClassMetadata($entity::class)->name;
         if (! $this->indexManager->hasEntityIndexes($entityName)) {
             return;
         }
@@ -72,7 +70,6 @@ class OneFieldPopulator extends AbstractPopulator
     /**
      * Populate index of given entity.
      *
-     * @throws ORMException
      * @throws OptimisticLockException
      * @throws MethodNotFoundException
      * @throws \ReflectionException|DBAL\Exception
