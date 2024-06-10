@@ -27,7 +27,7 @@ class IndexListenerTest extends AbstractIndexTest
                 'country' => 'Switzerland',
                 'taxIdentificationNumber' => '12344566',
             ]),
-        ])->object();
+        ])->_real();
 
         $indexResults = $em->getRepository(Index::class)->findAll();
         self::assertCount(6, $indexResults);
@@ -65,7 +65,7 @@ class IndexListenerTest extends AbstractIndexTest
                 'country' => 'Switzerland',
                 'taxIdentificationNumber' => '12344566',
             ]),
-        ])->object();
+        ])->_real();
 
         $contactId = $contact->getId();
 
@@ -115,7 +115,7 @@ class IndexListenerTest extends AbstractIndexTest
                 'country' => 'country',
                 'taxIdentificationNumber' => '123456',
             ]),
-        ])->object();
+        ])->_real();
 
         $contactId = $contact->getId();
 

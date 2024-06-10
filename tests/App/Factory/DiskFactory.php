@@ -31,9 +31,9 @@ namespace araise\SearchBundle\Tests\App\Factory;
 
 use araise\SearchBundle\Tests\App\Entity\Computer;
 use araise\SearchBundle\Tests\App\Entity\Disk;
-use Zenstruck\Foundry\ModelFactory;
-use Zenstruck\Foundry\Proxy;
-use Zenstruck\Foundry\RepositoryProxy;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
+use Zenstruck\Foundry\Persistence\Proxy;
+use Zenstruck\Foundry\Persistence\ProxyRepositoryDecorator;
 
 /**
  * @method static        Computer|Proxy createOne(array $attributes = [])
@@ -48,17 +48,17 @@ use Zenstruck\Foundry\RepositoryProxy;
  * @method static        Computer[]|Proxy[] findBy(array $attributes)
  * @method static        Computer[]|Proxy[] randomSet(int $number, array $attributes = [])
  * @method static        Computer[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
- * @method static        RepositoryProxy repository()
+ * @method static        ProxyRepositoryDecorator repository()
  * @method Computer|Proxy create($attributes = [])
  */
-class DiskFactory extends ModelFactory
+class DiskFactory extends PersistentProxyObjectFactory
 {
-    protected static function getClass(): string
+    public static function class(): string
     {
         return Disk::class;
     }
 
-    protected function getDefaults(): array
+    protected function defaults(): array
     {
         $number = self::faker()->numberBetween(1024, 1024 * 1024);
         return [
