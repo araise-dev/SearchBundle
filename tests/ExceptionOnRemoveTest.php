@@ -75,7 +75,7 @@ class ExceptionOnRemoveTest extends KernelTestCase
 
     protected function setUp(): void
     {
-        $this->disk = DiskFactory::createOne()->object();
+        $this->disk = DiskFactory::createOne()->_real();
         self::assertNotNull($this->disk->getId());
         self::assertNotNull($this->disk->getComputer()->getId());
         $this->computerName = $this->disk->getComputer()->getName();

@@ -6,9 +6,9 @@ namespace araise\SearchBundle\Tests\App\Factory;
 
 use araise\SearchBundle\Tests\App\Entity\Person;
 use araise\SearchBundle\Tests\App\Repository\PersonRepository;
-use Zenstruck\Foundry\ModelFactory;
-use Zenstruck\Foundry\Proxy;
-use Zenstruck\Foundry\RepositoryProxy;
+use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
+use Zenstruck\Foundry\Persistence\Proxy;
+use Zenstruck\Foundry\Persistence\ProxyRepositoryDecorator;
 
 /**
  * @method static       Person|Proxy createOne(array $attributes = [])
@@ -23,20 +23,20 @@ use Zenstruck\Foundry\RepositoryProxy;
  * @method static       Person[]|Proxy[] findBy(array $attributes)
  * @method static       Person[]|Proxy[] randomSet(int $number, array $attributes = [])
  * @method static       Person[]|Proxy[] randomRange(int $min, int $max, array $attributes = [])
- * @method static       PersonRepository|RepositoryProxy repository()
+ * @method static       PersonRepository|ProxyRepositoryDecorator repository()
  * @method Person|Proxy create($attributes = [])
  */
-final class PersonFactory extends ModelFactory
+final class PersonFactory extends PersistentProxyObjectFactory
 {
-    protected function getDefaults(): array
+    public static function class(): string
+    {
+        return Person::class;
+    }
+
+    protected function defaults(): array
     {
         return [
             'name' => self::faker()->name(),
         ];
-    }
-
-    protected static function getClass(): string
-    {
-        return Person::class;
     }
 }

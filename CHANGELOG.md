@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v3.2.0
+ - Removed symfony ^5.4 support
+
 ## v3.0.5
  - More documentation and better styling of the documentation
 
